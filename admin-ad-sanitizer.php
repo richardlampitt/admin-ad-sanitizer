@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.2
+ * Version: 1.0.3
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.3 - Added: Get Shortcodes
  * 1.0.2 - Added: Profile Builder
  * 1.0.1 - Added: Enhanced Text Widget
  * 1.0.0 - Added: AIO Plugins and Elements Kit
@@ -52,6 +53,10 @@ class Admin_Ad_Sanitizer {
       #tifm_new_feature_notice,
       .notice:has(span[class*="tifm-grow"]),
       .notice:has(a[href*="plugins.php?s=Enhanced%20Text%20Widget"]),
+
+        /* Get Shortcodes ----------------------- */
+      .su-admin-c-notice-pro:has([href*="getshortcodes.com/pricing"]),
+      .su-admin-about-wrap:has([href*="getshortcodes.com/pricing"]),
 
         /* Monster Insights --------------------- */
       #monterinsights-admin-menu-tooltip,
@@ -200,6 +205,7 @@ class Admin_Ad_Sanitizer {
 
       /* endregion */
       /* ////////////////////////////////////////////////////// */
+
     </style>
   <?php }
 
