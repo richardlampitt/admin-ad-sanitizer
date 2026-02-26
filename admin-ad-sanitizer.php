@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.5
+ * Version: 1.0.5.1
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,12 +13,13 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
- * 1.0.5 - Added: Smashballoons Instagram Feed unneeded icon
- * 1.0.4 - Added: Smashballoons Instagram Feed plugin upsell
- * 1.0.3 - Added: Get Shortcodes
- * 1.0.2 - Added: Profile Builder
- * 1.0.1 - Added: Enhanced Text Widget
- * 1.0.0 - Added: AIO Plugins and Elements Kit
+ * 1.0.5.1 - Bugfix: Incorrect selector.
+ * 1.0.5   - Added: Smashballoons Instagram Feed unneeded icon
+ * 1.0.4   - Added: Smashballoons Instagram Feed plugin upsell
+ * 1.0.3   - Added: Get Shortcodes
+ * 1.0.2   - Added: Profile Builder
+ * 1.0.1   - Added: Enhanced Text Widget
+ * 1.0.0   - Added: AIO Plugins and Elements Kit
  */
 
 class Admin_Ad_Sanitizer {
@@ -168,12 +169,16 @@ class Admin_Ad_Sanitizer {
       /* Contact Form Redirect :: wpcf7-redirect */
       .fs-submenu-item.pricing.upgrade-mode,
 
+        /* Instagram Feed */
+      .sbi-cta-discount-label,
+
         /* Moster Insights */
       #adminmenu .monsterinsights-highlight,
       .monsterinsights-submenu-highlight,
 
         /* Some plugins will add style attributes directly */
       #adminmenu {
+        &,
         & .upgrade,
         & [style*="color:"],
         & [style*="background-color:"],
