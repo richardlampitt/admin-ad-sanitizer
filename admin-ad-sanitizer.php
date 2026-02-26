@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.3
+ * Version: 1.0.4
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.4 - Added: Smashballoons Instagram Feed plugin upsell
  * 1.0.3 - Added: Get Shortcodes
  * 1.0.2 - Added: Profile Builder
  * 1.0.1 - Added: Enhanced Text Widget
@@ -56,7 +57,13 @@ class Admin_Ad_Sanitizer {
 
         /* Get Shortcodes ----------------------- */
       .su-admin-c-notice-pro:has([href*="getshortcodes.com/pricing"]),
-      .su-admin-about-wrap:has([href*="getshortcodes.com/pricing"]),
+        /*.su-admin-about-wrap:has([href*="getshortcodes.com/pricing"]),*/
+
+        /* Instagram Feed ----------------------- */
+
+      .sbi-notifications .messages:has([href*="how-to-get-free-whatsapp-chat-plugin-wordpress"]),
+      .sbi-notifications .messages:has([href*="?utm_source="]),
+      .sbi-notifications .messages:has([href*="?utm_campaign="]),
 
         /* Monster Insights --------------------- */
       #monterinsights-admin-menu-tooltip,
