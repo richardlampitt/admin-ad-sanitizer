@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.6
+ * Version: 1.0.7.1
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,9 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.7.1 - Bugfix: Reduce specificity of selector to prevent accidental exclusion of legitimate notices.
+ * 1.0.7   - Added: Royal Elementor Addons update notification upsells.
+ * 1.0.7   - Added: Elementor update notification upsells.
  * 1.0.6   - Added: UpdraftPlus massive notification upsell hijack.
  * 1.0.5.1 - Bugfix: Incorrect selector.
  * 1.0.5   - Added: Smashballoons Instagram Feed unneeded icon.
@@ -41,7 +44,7 @@ class Admin_Ad_Sanitizer {
       .notice:has([href*="https://wpmet.com/elementskit-pricing"]),
 
         /* Bootstrap Blocks --------------------- */
-      .bootstrap-notice.notice.notice-alt.notice-large.notice-success,
+      .bootstrap-notice.notice-alt.notice-large.notice-success,
 
         /* CleaverPlugins ----------------------- */
       .cp-ddp-newsletter,
@@ -53,6 +56,9 @@ class Admin_Ad_Sanitizer {
       .duplicate_page_settings h1 > a,
       #new-bb-banner,
 
+        /* Elementor ---------------------------- */
+      #ehe-admin-cb :not(div):not(.notice-dismiss),
+
         /* Enhanced Text Widget ----------------- */
       #tifm_new_feature_notice,
       .notice:has(span[class*="tifm-grow"]),
@@ -63,7 +69,6 @@ class Admin_Ad_Sanitizer {
         /*.su-admin-about-wrap:has([href*="getshortcodes.com/pricing"]),*/
 
         /* Instagram Feed ----------------------- */
-
       .sbi-new-indicator,
       #sbi-notifications .messages:has([href*="how-to-get-free-whatsapp-chat-plugin-wordpress"]),
       #sbi-notifications .messages:has([href*="?utm_source="]),
@@ -111,6 +116,11 @@ class Admin_Ad_Sanitizer {
       #rs_notice_the_bell,
       [id^="rs_advert"],
       .rs_wp_plg_act_wrapper,
+
+        /* Royal Elementor Addons --------------- */
+      .wpr-plugin-update-notice div,
+      .wpr-plugin-update-notice canvas,
+      #wpr-notice-confetti,
 
         /* Simple History ----------------------- */
       .sh-PremiumFeaturesPostbox,
@@ -196,6 +206,82 @@ class Admin_Ad_Sanitizer {
             background: inherit !important;
             color: inherit !important;
           }
+        }
+      }
+
+      /* endregion */
+      /* ====================================== */
+
+      /* ====================================== */
+      /* region Fix update notification content: */
+
+
+      .wpr-plugin-update-notice,
+      .end-selectors-list {
+        background: #fefefe !important;
+        border: 1px solid #c3c4c7fe !important;
+        border-left-color: #72aee6fe !important;
+        border-left-width: 4px !important;
+        box-shadow: 0 1px 1px #0000000a !important;
+        padding: 0.5rem 0.75rem !important;
+
+        &::after,
+        &::before {
+          content: "Updated:";
+          display: inline-flex;
+          align-items: center;
+          line-height: 1;
+          font-size: 0.8125rem;
+          padding-inline-end: 0.325em;
+        }
+      }
+
+      .wpr-plugin-update-notice::after {
+        content: "Royal Elementor Plugins" !important;
+      }
+
+      /* Elementor Upsells */
+      div:has( > .MuiBox-root .notice-dismiss) {
+        display: block !important;
+        background: #fefefe !important;
+        border: 1px solid #c3c4c7fe !important;
+        border-left-color: #72aee6fe !important;
+        border-left-width: 4px !important;
+        box-shadow: 0 1px 1px #0000000a !important;
+        padding: 0.5rem 0.75rem !important;
+
+        & .MuiBox-root:has(.notice-dismiss) {
+          &,
+          & .MuiBox-root:not(.notice-dismiss),
+          & .MuiStack-root:not(.notice-dismiss),
+          & .MuiPaper-root:not(.notice-dismiss) {
+            padding: 0 !important;
+            color: unset !important;
+            transition: unset !important;
+            box-shadow: unset !important;
+            background-image: unset !important;
+            border-radius: unset !important;
+            background-color: unset !important;
+            width: auto !important;
+            position: relative !important;
+            float: right !important;
+          }
+        }
+        .notice-dismiss {
+          padding: 0 !important;
+        }
+
+        &::after,
+        &::before {
+          content: "";
+          display: inline-flex;
+          align-items: center;
+          line-height: 1;
+          font-size: 0.8125rem;
+          padding-inline-end: 0.325em;
+        }
+        &::after {
+          content: "This notice is unimportant and can be dismissed."
         }
       }
 
