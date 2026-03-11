@@ -13,7 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
- * 1.0.8   - Added: De-emphasize RankMath Pro notice
+ * 1.0.9   - Added: Remove disabled RankMath functionality.
+ * 1.0.8   - Added: De-emphasize RankMath Pro notice.
  * 1.0.7.1 - Bugfix: Reduce specificity of selector to prevent accidental exclusion of legitimate notices.
  * 1.0.7   - Added: Royal Elementor Addons update notification upsells.
  * 1.0.7   - Added: Elementor update notification upsells.
@@ -161,6 +162,7 @@ class Admin_Ad_Sanitizer {
       /* ====================================== */
       /* region Remove disabled functionality: */
 
+      .rank-math-box[aria-hidden="true"],
       .monsterinsights-metabox input[disabled],
       .monsterinsights-metabox input[disabled] + label,
       .monsterinsights-metabox input[disabled] + span,
