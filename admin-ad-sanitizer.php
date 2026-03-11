@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.9
+ * Version: 1.0.10
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.10  - Added: Remove RankMath animations.
  * 1.0.9   - Added: Remove disabled RankMath functionality.
  * 1.0.8   - Added: De-emphasize RankMath Pro notice.
  * 1.0.7.1 - Bugfix: Reduce specificity of selector to prevent accidental exclusion of legitimate notices.
@@ -212,7 +213,10 @@ class Admin_Ad_Sanitizer {
         }
       }
 
+      /* ------------------------------ */
       /* Revert any admin-menu changes */
+      /* ------------------------------ */
+
       #adminmenu .opensub .wp-submenu li.current a,
       #adminmenu .wp-submenu li.current,
       #adminmenu .wp-submenu li.current a,
@@ -244,7 +248,10 @@ class Admin_Ad_Sanitizer {
         }
       }
 
+      /* ------------------------------ */
       /* Revert any less-annoying notice changes: */
+      /* ------------------------------ */
+
       #rank-math-unlock-pro-notice,
       #end-selectors-list {
         border: 1px solid #b5bfc9 !important;
@@ -266,6 +273,19 @@ class Admin_Ad_Sanitizer {
           &:hover, &:focus, &:focus-visible {
             color: var(--wp-admin-theme-color-darker-10) !important;
           }
+        }
+      }
+
+      /* ------------------------------ */
+      /* Remove animations */
+      /* ------------------------------ */
+
+      .rank-math-dashboard-page *,
+      #end-selectors-list {
+        &,
+        &::before,
+        &::after {
+          animation: none !important;
         }
       }
 
