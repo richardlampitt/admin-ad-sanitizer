@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.7.1
+ * Version: 1.0.8
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.8   - Added: De-emphasize RankMath Pro notice
  * 1.0.7.1 - Bugfix: Reduce specificity of selector to prevent accidental exclusion of legitimate notices.
  * 1.0.7   - Added: Royal Elementor Addons update notification upsells.
  * 1.0.7   - Added: Elementor update notification upsells.
@@ -209,12 +210,68 @@ class Admin_Ad_Sanitizer {
         }
       }
 
+      /* Revert any admin-menu changes */
+      #adminmenu .opensub .wp-submenu li.current a,
+      #adminmenu .wp-submenu li.current,
+      #adminmenu .wp-submenu li.current a,
+      #adminmenu a.wp-has-current-submenu:focus + .wp-submenu li.current a {
+        &,
+        &.upgrade,
+        &[style*="color:"],
+        &[style*="background-color:"],
+        &[href*="utm_"],
+        &[href*="upgrade"],
+        &[href*="premium"] {
+          &,
+          & span,
+          & div {
+            background: transparent !important;
+            color: var(--wp--preset--color--white, #fefefeff) !important;
+          }
+
+          &:hover,
+          &:focus,
+          &:focus-visible {
+            &,
+            & span,
+            & div {
+              background: transparent !important;
+              color: var(--wp-admin-theme-color) !important;
+            }
+          }
+        }
+      }
+
+      /* Revert any less-annoying notice changes: */
+      #rank-math-unlock-pro-notice,
+      #end-selectors-list {
+        border: 1px solid #b5bfc9 !important;
+
+        &,
+        & a,
+        & * {
+          background: var(--wp--preset--color--white, #fefefe);
+          color: var(--wp-admin-theme-color) !important;
+          font-size: 13px !important;
+          border: unset !important;
+          font-weight: unset !important;
+        }
+        & strong,
+        & b {
+          font-weight: 600 !important;
+        }
+        & a {
+          &:hover, &:focus, &:focus-visible {
+            color: var(--wp-admin-theme-color-darker-10) !important;
+          }
+        }
+      }
+
       /* endregion */
       /* ====================================== */
 
       /* ====================================== */
       /* region Fix update notification content: */
-
 
       .wpr-plugin-update-notice,
       .end-selectors-list {
