@@ -282,6 +282,7 @@ class Admin_Ad_Sanitizer {
       /* ------------------------------ */
 
       #rank-math-dashboard-page *,
+      #rank-math-dashboard-page .rank-math-button.components-button.button-animate,
       #end-selectors-list {
         &,
         &::before,
