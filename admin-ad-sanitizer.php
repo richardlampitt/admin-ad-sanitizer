@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.11.1 - Added: Yoast upsells.
  * 1.0.11   - Added: Yoast upsells.
  * 1.0.10.1 - Bugfix: Fix incorrect selector.
  * 1.0.10   - Added: Remove RankMath animations.
@@ -155,7 +156,8 @@ class Admin_Ad_Sanitizer {
         /* Yoast -------------------------------- */
       .yoast #sidebar-container.wpseo_content_cell,
       .yoast_premium_upsell,
-      div:has([class*="yst-button--upsell"]),
+      .yst-modal,
+      div:has(> [class*="yst-button--upsell"]),
       a:has([class*="yst-button--upsell"]),
       a[href*="wpseo_upgrade_sidebar"],
       #end-selectors-list {
