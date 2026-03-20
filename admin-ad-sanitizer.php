@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.10
+ * Version: 1.0.11
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.11   - Added: Yoast upsells.
  * 1.0.10.1 - Bugfix: Fix incorrect selector.
  * 1.0.10   - Added: Remove RankMath animations.
  * 1.0.9    - Added: Remove disabled RankMath functionality.
@@ -154,6 +155,9 @@ class Admin_Ad_Sanitizer {
         /* Yoast -------------------------------- */
       .yoast #sidebar-container.wpseo_content_cell,
       .yoast_premium_upsell,
+      div:has([class*="yst-button--upsell"]),
+      a:has([class*="yst-button--upsell"]),
+      a[href*="wpseo_upgrade_sidebar"],
       #end-selectors-list {
         display: none !important;
       }
