@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.11.2
+ * Version: 1.0.11.3
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.11.3 - Added: Yoast disabled featured.
  * 1.0.11.2 - Bugfix: Overeager Selector affecting too many items.
  * 1.0.11.1 - Added: Yoast upsells.
  * 1.0.11   - Added: Yoast upsells.
@@ -171,251 +172,259 @@ class Admin_Ad_Sanitizer {
       /* ====================================== */
       /* region Remove disabled functionality: */
 
-      .rank-math-box[aria-hidden="true"],
+      /* Monster Insights ---------------------- */
       .monsterinsights-metabox input[disabled],
       .monsterinsights-metabox input[disabled] + label,
       .monsterinsights-metabox input[disabled] + span,
-      .monsterinsights-metabox .monsterinsights-metabox-pro-badge {
-        display: none;
-      }
+      .monsterinsights-metabox .monsterinsights-metabox-pro-badge,
 
-      .notice.notice-error.rank-math-notice,
-      .notice.notice-success.rank-math-notice {
-        display: none;
-      }
+        /* Rank Math --------------------------- */
+      .rank-math-box[aria-hidden="true"],
 
-      /* endregion */
-      /* ====================================== */
-
-      /* ====================================== */
-      /* region De-emphasis on less annoying things: */
-
-      /* Contact Form Redirect :: wpcf7-redirect */
-      .fs-submenu-item.pricing.upgrade-mode,
-
-        /* Instagram Feed */
-      .sbi-cta-discount-label,
-
-        /* Moster Insights */
-      #adminmenu .monsterinsights-highlight,
-      .monsterinsights-submenu-highlight,
-
-        /* --- */
+        /* Yoast ------------------------------- */
+      .wp-submenu > li > a:has(.yoast-premium-badge),
       #end-selectors-list {
-        & .upgrade,
-        &.upgrade,
-        & [style*="color:"],
-        &[style*="color:"],
-        & [style*="background-color:"],
-        &[style*="background-color:"],
-        & [href*="utm_"],
-        &[href*="utm_"],
-        & [href*="upgrade"],
-        &[href*="upgrade"],
-        & [href*="premium"],
-        &[href*="premium"] {
-          &,
-          & a,
-          & span,
-          & div,
-          &:hover,
-          &:hover span,
-          &:hover div {
-            background: inherit !important;
-            color: inherit !important;
-          }
-        }
+      {
+        display: none;
       }
 
-      /* Some plugins will add style attributes directly */
-      #adminmenu {
-        & .upgrade,
-        & [style*="color:"],
-        & [style*="background-color:"],
-        & [href*="utm_"],
-        & [href*="upgrade"],
-        & [href*="premium"] {
-          &,
-          & a,
-          & span,
-          & div,
-          &:hover,
-          &:hover span,
-          &:hover div {
-            background: inherit !important;
-            color: inherit !important;
+        .notice.notice-error.rank-math-notice,
+        .notice.notice-success.rank-math-notice {
+          display: none;
+        }
+
+        /* endregion */
+        /* ====================================== */
+
+        /* ====================================== */
+        /* region De-emphasis on less annoying things: */
+
+        /* Contact Form Redirect :: wpcf7-redirect */
+        .fs-submenu-item.pricing.upgrade-mode,
+
+          /* Instagram Feed */
+        .sbi-cta-discount-label,
+
+          /* Moster Insights */
+        #adminmenu .monsterinsights-highlight,
+        .monsterinsights-submenu-highlight,
+
+          /* --- */
+        #end-selectors-list {
+          & .upgrade,
+          &.upgrade,
+          & [style*="color:"],
+          &[style*="color:"],
+          & [style*="background-color:"],
+          &[style*="background-color:"],
+          & [href*="utm_"],
+          &[href*="utm_"],
+          & [href*="upgrade"],
+          &[href*="upgrade"],
+          & [href*="premium"],
+          &[href*="premium"] {
+            &,
+            & a,
+            & span,
+            & div,
+            &:hover,
+            &:hover span,
+            &:hover div {
+              background: inherit !important;
+              color: inherit !important;
+            }
           }
         }
-      }
 
-      /* ------------------------------ */
-      /* Revert any admin-menu changes */
-      /* ------------------------------ */
-
-      #adminmenu .opensub .wp-submenu li.current a,
-      #adminmenu .wp-submenu li.current,
-      #adminmenu .wp-submenu li.current a,
-      #adminmenu a.wp-has-current-submenu:focus + .wp-submenu li.current a {
-        &,
-        &.upgrade,
-        &[style*="color:"],
-        &[style*="background-color:"],
-        &[href*="utm_"],
-        &[href*="upgrade"],
-        &[href*="premium"] {
-          &,
-          & span,
-          & div {
-            background: transparent !important;
-            color: var(--wp--preset--color--white, #fefefeff) !important;
+        /* Some plugins will add style attributes directly */
+        #adminmenu {
+          & .upgrade,
+          & [style*="color:"],
+          & [style*="background-color:"],
+          & [href*="utm_"],
+          & [href*="upgrade"],
+          & [href*="premium"] {
+            &,
+            & a,
+            & span,
+            & div,
+            &:hover,
+            &:hover span,
+            &:hover div {
+              background: inherit !important;
+              color: inherit !important;
+            }
           }
+        }
 
-          &:hover,
-          &:focus,
-          &:focus-visible {
+        /* ------------------------------ */
+        /* Revert any admin-menu changes */
+        /* ------------------------------ */
+
+        #adminmenu .opensub .wp-submenu li.current a,
+        #adminmenu .wp-submenu li.current,
+        #adminmenu .wp-submenu li.current a,
+        #adminmenu a.wp-has-current-submenu:focus + .wp-submenu li.current a {
+          &,
+          &.upgrade,
+          &[style*="color:"],
+          &[style*="background-color:"],
+          &[href*="utm_"],
+          &[href*="upgrade"],
+          &[href*="premium"] {
             &,
             & span,
             & div {
               background: transparent !important;
-              color: var(--wp-admin-theme-color) !important;
+              color: var(--wp--preset--color--white, #fefefeff) !important;
+            }
+
+            &:hover,
+            &:focus,
+            &:focus-visible {
+              &,
+              & span,
+              & div {
+                background: transparent !important;
+                color: var(--wp-admin-theme-color) !important;
+              }
             }
           }
         }
-      }
 
-      /* ------------------------------ */
-      /* Revert any less-annoying notice changes: */
-      /* ------------------------------ */
+        /* ------------------------------ */
+        /* Revert any less-annoying notice changes: */
+        /* ------------------------------ */
 
-      #rank-math-unlock-pro-notice,
-      #end-selectors-list {
-        border: 1px solid #b5bfc9 !important;
+        #rank-math-unlock-pro-notice,
+        #end-selectors-list {
+          border: 1px solid #b5bfc9 !important;
 
-        &,
-        & a,
-        & * {
-          background: var(--wp--preset--color--white, #fefefe);
-          color: var(--wp-admin-theme-color) !important;
-          font-size: 13px !important;
-          border: unset !important;
-          font-weight: unset !important;
-        }
-        & strong,
-        & b {
-          font-weight: 600 !important;
-        }
-        & a {
-          &:hover, &:focus, &:focus-visible {
-            color: var(--wp-admin-theme-color-darker-10) !important;
-          }
-        }
-      }
-
-      /* ------------------------------ */
-      /* Remove animations */
-      /* ------------------------------ */
-
-      #rank-math-dashboard-page *,
-      #rank-math-dashboard-page .rank-math-button.components-button.button-animate,
-      #end-selectors-list {
-        &,
-        &::before,
-        &::after {
-          animation: unset !important;
-        }
-      }
-
-      /* endregion */
-      /* ====================================== */
-
-      /* ====================================== */
-      /* region Fix update notification content: */
-
-      .wpr-plugin-update-notice,
-      .end-selectors-list {
-        background: #fefefe !important;
-        border: 1px solid #c3c4c7fe !important;
-        border-left-color: #72aee6fe !important;
-        border-left-width: 4px !important;
-        box-shadow: 0 1px 1px #0000000a !important;
-        padding: 0.5rem 0.75rem !important;
-
-        &::after,
-        &::before {
-          content: "Updated:";
-          display: inline-flex;
-          align-items: center;
-          line-height: 1;
-          font-size: 0.8125rem;
-          padding-inline-end: 0.325em;
-        }
-      }
-
-      .wpr-plugin-update-notice::after {
-        content: "Royal Elementor Plugins" !important;
-      }
-
-      /* Elementor Upsells */
-      div:has( > .MuiBox-root .notice-dismiss) {
-        display: block !important;
-        background: #fefefe !important;
-        border: 1px solid #c3c4c7fe !important;
-        border-left-color: #72aee6fe !important;
-        border-left-width: 4px !important;
-        box-shadow: 0 1px 1px #0000000a !important;
-        padding: 0.5rem 0.75rem !important;
-
-        & .MuiBox-root:has(.notice-dismiss) {
           &,
-          & .MuiBox-root:not(.notice-dismiss),
-          & .MuiStack-root:not(.notice-dismiss),
-          & .MuiPaper-root:not(.notice-dismiss) {
-            padding: 0 !important;
-            color: unset !important;
-            transition: unset !important;
-            box-shadow: unset !important;
-            background-image: unset !important;
-            border-radius: unset !important;
-            background-color: unset !important;
-            width: auto !important;
-            position: relative !important;
-            float: right !important;
+          & a,
+          & * {
+            background: var(--wp--preset--color--white, #fefefe);
+            color: var(--wp-admin-theme-color) !important;
+            font-size: 13px !important;
+            border: unset !important;
+            font-weight: unset !important;
+          }
+          & strong,
+          & b {
+            font-weight: 600 !important;
+          }
+          & a {
+            &:hover, &:focus, &:focus-visible {
+              color: var(--wp-admin-theme-color-darker-10) !important;
+            }
           }
         }
-        .notice-dismiss {
-          padding: 0 !important;
+
+        /* ------------------------------ */
+        /* Remove animations */
+        /* ------------------------------ */
+
+        #rank-math-dashboard-page *,
+        #rank-math-dashboard-page .rank-math-button.components-button.button-animate,
+        #end-selectors-list {
+          &,
+          &::before,
+          &::after {
+            animation: unset !important;
+          }
         }
 
-        &::after,
-        &::before {
-          content: "";
-          display: inline-flex;
-          align-items: center;
-          line-height: 1;
-          font-size: 0.8125rem;
-          padding-inline-end: 0.325em;
-        }
-        &::after {
-          content: "This notice is unimportant and can be dismissed."
-        }
-      }
+        /* endregion */
+        /* ====================================== */
 
-      /* endregion */
-      /* ====================================== */
+        /* ====================================== */
+        /* region Fix update notification content: */
 
-      /* ====================================== */
-      /* region Discorage clicking on trackers: */
+        .wpr-plugin-update-notice,
+        .end-selectors-list {
+          background: #fefefe !important;
+          border: 1px solid #c3c4c7fe !important;
+          border-left-color: #72aee6fe !important;
+          border-left-width: 4px !important;
+          box-shadow: 0 1px 1px #0000000a !important;
+          padding: 0.5rem 0.75rem !important;
 
-      #adminmenu [href*="utm_"] {
-        &,
-        & span,
-        & div,
-        &:hover,
-        &:hover span,
-        &:hover div {
-          opacity: 0.5 !important;
+          &::after,
+          &::before {
+            content: "Updated:";
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+            font-size: 0.8125rem;
+            padding-inline-end: 0.325em;
+          }
         }
-      }
+
+        .wpr-plugin-update-notice::after {
+          content: "Royal Elementor Plugins" !important;
+        }
+
+        /* Elementor Upsells */
+        div:has( > .MuiBox-root .notice-dismiss) {
+          display: block !important;
+          background: #fefefe !important;
+          border: 1px solid #c3c4c7fe !important;
+          border-left-color: #72aee6fe !important;
+          border-left-width: 4px !important;
+          box-shadow: 0 1px 1px #0000000a !important;
+          padding: 0.5rem 0.75rem !important;
+
+          & .MuiBox-root:has(.notice-dismiss) {
+            &,
+            & .MuiBox-root:not(.notice-dismiss),
+            & .MuiStack-root:not(.notice-dismiss),
+            & .MuiPaper-root:not(.notice-dismiss) {
+              padding: 0 !important;
+              color: unset !important;
+              transition: unset !important;
+              box-shadow: unset !important;
+              background-image: unset !important;
+              border-radius: unset !important;
+              background-color: unset !important;
+              width: auto !important;
+              position: relative !important;
+              float: right !important;
+            }
+          }
+          .notice-dismiss {
+            padding: 0 !important;
+          }
+
+          &::after,
+          &::before {
+            content: "";
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+            font-size: 0.8125rem;
+            padding-inline-end: 0.325em;
+          }
+          &::after {
+            content: "This notice is unimportant and can be dismissed."
+          }
+        }
+
+        /* endregion */
+        /* ====================================== */
+
+        /* ====================================== */
+        /* region Discorage clicking on trackers: */
+
+        #adminmenu [href*="utm_"] {
+          &,
+          & span,
+          & div,
+          &:hover,
+          &:hover span,
+          &:hover div {
+            opacity: 0.5 !important;
+          }
+        }
 
       /* endregion */
       /* ====================================== */
