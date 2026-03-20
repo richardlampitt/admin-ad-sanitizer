@@ -159,6 +159,7 @@ class Admin_Ad_Sanitizer {
         /* Yoast -------------------------------- */
       .yoast #sidebar-container.wpseo_content_cell,
       .yoast_premium_upsell,
+      [href*="wpseo_brand_insights"]:has(.yst-external-link-icon),
       .yst-modal,
       div:has(> [class*="yst-button--upsell"]),
       a:has([class*="yst-button--upsell"]),
@@ -277,6 +278,19 @@ class Admin_Ad_Sanitizer {
           & div {
             background: transparent !important;
             color: var(--wp--preset--color--white, #fefefeff) !important;
+          }
+
+          & div,
+          & span {
+            border: unset !important;
+            height: unset !important;
+            margin: unset !important;
+            position: static !important;
+            display: initial !important;
+            padding: unset !important;
+            font: inherit !important;
+            color: inherit !important;
+            background: transparent !important;
           }
 
           &:hover,
