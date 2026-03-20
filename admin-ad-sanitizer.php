@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.11
+ * Version: 1.0.11.2
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.11.2 - Bugfix: Overeager Selector affecting too many items.
  * 1.0.11.1 - Added: Yoast upsells.
  * 1.0.11   - Added: Yoast upsells.
  * 1.0.10.1 - Bugfix: Fix incorrect selector.
@@ -199,9 +200,35 @@ class Admin_Ad_Sanitizer {
       #adminmenu .monsterinsights-highlight,
       .monsterinsights-submenu-highlight,
 
-        /* Some plugins will add style attributes directly */
+        /* --- */
+      #end-selectors-list {
+        & .upgrade,
+        &.upgrade,
+        & [style*="color:"],
+        &[style*="color:"],
+        & [style*="background-color:"],
+        &[style*="background-color:"],
+        & [href*="utm_"],
+        &[href*="utm_"],
+        & [href*="upgrade"],
+        &[href*="upgrade"],
+        & [href*="premium"],
+        &[href*="premium"] {
+          &,
+          & a,
+          & span,
+          & div,
+          &:hover,
+          &:hover span,
+          &:hover div {
+            background: inherit !important;
+            color: inherit !important;
+          }
+        }
+      }
+
+      /* Some plugins will add style attributes directly */
       #adminmenu {
-        &,
         & .upgrade,
         & [style*="color:"],
         & [style*="background-color:"],
@@ -209,6 +236,7 @@ class Admin_Ad_Sanitizer {
         & [href*="upgrade"],
         & [href*="premium"] {
           &,
+          & a,
           & span,
           & div,
           &:hover,
