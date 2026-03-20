@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.0.11.4
+ * Version: 1.0.11.5
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.11.5 - Added: Yoast external link in menu.
  * 1.0.11.4 - Bugfix: Incorrectly formatted CSS.
  * 1.0.11.3 - Added: Yoast disabled featured.
  * 1.0.11.2 - Bugfix: Overeager Selector affecting too many items.
