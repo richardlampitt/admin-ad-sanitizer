@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.0
+ * Version: 1.1.0.1
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.0.1  - Bugfix: Fix missing hook.
  * 1.1.0    - Feature: Change hook to affect customizer interface.
  * 1.0.12.1 - Added: Astra Customizer disabled features.
  * 1.0.12   - Added: Astra Customizer huge upsell.
@@ -460,8 +461,8 @@ class Admin_Ad_Sanitizer {
   <?php }
 
   public function __construct() {
-    // add_action('admin_head', [ $this, 'admin_ad_disable_css' ], PHP_INT_MAX);
-    add_action('admin_enqueue_scripts', [ $this, 'admin_ad_disable_css' ], PHP_INT_MAX);
+    add_action('admin_head', [ $this, 'admin_ad_disable_css' ], PHP_INT_MAX);
+    add_action('customize_controls_enqueue_scripts', [ $this, 'admin_ad_disable_css' ], PHP_INT_MAX);
   }
 }
 
