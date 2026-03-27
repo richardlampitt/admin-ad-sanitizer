@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.1.9  - Added: Astra remove site-builder bait-and-switch.
  * 1.1.1.8  - Added: Astra dashboard disabled features.
  * 1.1.1.7  - Bugfix: Fix incorrect selector.
  * 1.1.1.6  - Added: Astra full screen ad tab.
@@ -203,6 +204,7 @@ class Admin_Ad_Sanitizer {
       #astra-dashboard-app section:has([href^="https://wpastra.com/pricing/"]),
       #astra-dashboard-app :has(a[href*="page=astra&path=free-vs-pro"]) a[href*="&settings=version-control"],
       #astra-dashboard-app :has(a[href*="page=astra&path=free-vs-pro"]) a[href*="&settings=white-label"],
+      #toplevel_page_astra li:has(a[href*="page=theme-builder-free"]),
 
         /* Monster Insights ---------------------- */
       .monsterinsights-metabox input[disabled],
