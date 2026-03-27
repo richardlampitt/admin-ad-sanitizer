@@ -13,6 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.1.1  - Added: Astra Customizer disabled features.
+ * 1.0.1.0  - Added: Astra Customizer huge upsell.
  * 1.1.0.1  - Bugfix: Fix missing hook.
  * 1.1.0    - Feature: Change hook to affect customizer interface.
  * 1.0.12.1 - Added: Astra Customizer disabled features.
@@ -59,6 +61,8 @@ class Admin_Ad_Sanitizer {
 
         /* Astra -------------------------------- */
       #customize-control-astra-settings-header-builder-pro-items,
+      #astra-dashboard-app section:has([d="M83.1363 60.863C81.3465 61.953 19.6523 63.0372 16.4254 60.863C13.778 59.0818 15.0372 28.0612 15.5994 15.759C15.6194 15.3288 15.6366 14.9272 15.6567 14.5429C15.7485 12.581 17.2917 10.576 19.2478 10.5129C24.0522 10.358 79.9124 9.78723 82.4221 11.0894C82.8753 11.3246 83.2453 13.0628 83.5379 15.759H83.5408C84.8745 27.9952 84.6078 59.971 83.1392 60.863H83.1363Z"]),
+
 
         /* Bootstrap Blocks --------------------- */
       .bootstrap-notice.notice-alt.notice-large.notice-success,
@@ -184,6 +188,8 @@ class Admin_Ad_Sanitizer {
 
       /* Astra --------------------------------- */
       .builder-add-btn.pro-feature:has(.pro-icon),
+      #astra-dashboard-app a:has(.lucide-lock),
+      #astra-dashboard-app section:has([href^="https://wpastra.com/pricing/"]),
 
         /* Monster Insights ---------------------- */
       .monsterinsights-metabox input[disabled],
