@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.0.12   - Added: Astra Customizer huge upsell.
  * 1.0.11.5 - Added: Yoast external link in menu.
  * 1.0.11.4 - Bugfix: Incorrectly formatted CSS.
  * 1.0.11.3 - Added: Yoast disabled featured.
@@ -52,6 +53,9 @@ class Admin_Ad_Sanitizer {
         /* AIO Plugins -------------------------- */
       .notice:has([href*="https://wpmet.com/deals"]),
       .notice:has([href*="https://wpmet.com/elementskit-pricing"]),
+
+        /* Astra -------------------------------- */
+      #customize-control-astra-settings-header-builder-pro-items,
 
         /* Bootstrap Blocks --------------------- */
       .bootstrap-notice.notice-alt.notice-large.notice-success,
