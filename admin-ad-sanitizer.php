@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.1.9
+ * Version: 1.1.1.10
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.1.10 - Added: Astra remove starter templates cross-sell.
  * 1.1.1.9  - Added: Astra remove site-builder bait-and-switch.
  * 1.1.1.8  - Added: Astra dashboard disabled features.
  * 1.1.1.7  - Bugfix: Fix incorrect selector.
@@ -74,6 +75,8 @@ class Admin_Ad_Sanitizer {
       #astra-dashboard-app a[href*="vip-priority-support"],
       #astra-dashboard-app a[href*="page=astra&amp;path=free-vs-pro"],
       #astra-dashboard-app a[href*="page=astra&path=free-vs-pro"],
+      #astra-dashboard-app a[href*="page=astra&amp;path=starter-templates"],
+      #astra-dashboard-app a[href*="page=astra&path=starter-templates"],
       #customize-theme-controls li:has([href*="https://wpastra.com/pricing/"]),
 
         /* Bootstrap Blocks --------------------- */
