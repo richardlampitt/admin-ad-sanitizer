@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.2.4  - Bugfix: Fix overeager deregister calls.
  * 1.1.2.3  - Bugfix: Disable over-ambitious cookie date causing fatal error.
  * 1.1.2.2  - Added: ThemeHunk Mega Menu class override.
  * 1.1.2.1  - Added: ThemeHunk Mega Menu admin advertisements.
@@ -569,15 +570,19 @@ if ( Admin_Ad_Sanitizer::is_plugin_active('themehunk-megamenu-plus/themehunk-meg
       // This cookie helps prevent the obnoxious banner from loading:
       //        setcookie('thc_time', time() + ( 86457 * 30 ), PHP_INT_MAX);
       // }
-      foreach ( [ 'owl.carousel', 'hunk-companion-notice' ] as $remove ) {
-        // Attempt to remove any assets used by the obnoxious banner:
-        wp_dequeue_style($remove);
-        wp_deregister_style($remove);
-      }
-      foreach ( [ 'owl.carousel', 'hunk-companion-notify' ] as $remove ) {
-        // Attempt to remove any assets used by the obnoxious banner:
-        wp_dequeue_script($remove);
-        wp_deregister_script($remove);
+      foreach ( [ 'admin_enqueue_scripts', 'login_enqueue_scripts' ] as $hook ) {
+        add_action($hook, function() {
+          foreach ( [ 'owl.carousel', 'hunk-companion-notice' ] as $remove ) {
+            // Attempt to remove any assets used by the obnoxious banner:
+            wp_dequeue_style($remove);
+            wp_deregister_style($remove);
+          }
+          foreach ( [ 'owl.carousel', 'hunk-companion-notify' ] as $remove ) {
+            // Attempt to remove any assets used by the obnoxious banner:
+            wp_dequeue_script($remove);
+            wp_deregister_script($remove);
+          }
+        });
       }
       foreach ( [
         [ 'hook' => 'admin_init', 'method' => 'set_cookie' ],
