@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.2.1
+ * Version: 1.1.2.2
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.2.2  - Added: ThemeHunk Mega Menu class override.
  * 1.1.2.1  - Added: ThemeHunk Mega Menu admin advertisements.
  * 1.1.2    - Added: ThemeHunk Mega Menu advertisement slider.
  * 1.1.1.10 - Added: Astra remove starter templates cross-sell.
@@ -499,3 +500,39 @@ class Admin_Ad_Sanitizer {
 }
 
 new Admin_Ad_Sanitizer();
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#region Overrides
+
+class ThemeHunk_Notify {
+  // this class is here to disable an obnoxious slider advertisement.
+  public function __construct() {
+    if ( !isset($_COOKIE['thc_time']) ) {
+      // This cookie helps prevent the obnoxious banner from loading:
+      setcookie('thc_time', time() + ( 86457 * 30 ), PHP_INT_MAX);
+    }
+    foreach ( [ 'owl.carousel', 'hunk-companion-notice' ] as $remove ) {
+      // Attempt to remove any assets used by the obnoxious banner:
+      wp_dequeue_style($remove);
+      wp_deregister_style($remove);
+    }
+    foreach ( [ 'owl.carousel', 'hunk-companion-notify' ] as $remove ) {
+      // Attempt to remove any assets used by the obnoxious banner:
+      wp_dequeue_script($remove);
+      wp_deregister_script($remove);
+    }
+    foreach ( [
+      [ 'hook' => 'admin_init', 'method' => 'set_cookie' ],
+      [ 'hook' => 'admin_notices', 'method' => 'notify' ],
+      [ 'hook' => 'admin_enqueue_scripts', 'method' => 'enqueue' ],
+      [ 'hook' => 'admin_notices', 'method' => 'unset_cookie' ],
+    ] as $values ) {
+      // Attempt to remove any assets used by the obnoxious banner:
+      remove_action($values['hook'], [ $this, $values['method'] ]);
+    }
+  }
+}
+
+new ThemeHunk_Notify();
+
+#endregion Overrides
