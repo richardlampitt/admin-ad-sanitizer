@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.2.2
+ * Version: 1.1.2.3
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.2.3  - Bugfix: Disable over-ambitious cookie date causing fatal error.
  * 1.1.2.2  - Added: ThemeHunk Mega Menu class override.
  * 1.1.2.1  - Added: ThemeHunk Mega Menu admin advertisements.
  * 1.1.2    - Added: ThemeHunk Mega Menu advertisement slider.
@@ -564,10 +565,10 @@ if ( Admin_Ad_Sanitizer::is_plugin_active('themehunk-megamenu-plus/themehunk-meg
   class ThemeHunk_Notify {
     // this class is here to disable an obnoxious slider advertisement.
     public function __construct() {
-      if ( !isset($_COOKIE['thc_time']) ) {
-        // This cookie helps prevent the obnoxious banner from loading:
-        setcookie('thc_time', time() + ( 86457 * 30 ), PHP_INT_MAX);
-      }
+      // if ( !isset($_COOKIE['thc_time']) ) {
+      // This cookie helps prevent the obnoxious banner from loading:
+      //        setcookie('thc_time', time() + ( 86457 * 30 ), PHP_INT_MAX);
+      // }
       foreach ( [ 'owl.carousel', 'hunk-companion-notice' ] as $remove ) {
         // Attempt to remove any assets used by the obnoxious banner:
         wp_dequeue_style($remove);
