@@ -56,6 +56,62 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 class Admin_Ad_Sanitizer {
 
+  /**
+   * Determines whether Multisite is enabled.
+   * Forked separately as this class may be loaded before the WP function is available
+   *
+   * @return bool True if Multisite is enabled, false otherwise.
+   * @since 3.0.0
+   *
+   */
+  public static function is_multisite() {
+    if ( defined('MULTISITE') ) {
+      return MULTISITE;
+    }
+
+    if ( defined('SUBDOMAIN_INSTALL') || defined('VHOST') || defined('SUNRISE') ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Checks if a plugin is active.
+   * Forked separately as this class may be loaded before the WP function is available
+   *
+   * @param $plugin
+   *
+   * @return bool
+   */
+  public static function is_plugin_active($plugin) {
+    return (
+      in_array($plugin, (array) get_option('active_plugins', []), true) ||
+      self::is_plugin_active_for_network($plugin)
+    );
+  }
+
+  /**
+   * Checks if a plugin is active.
+   * Forked separately as this class may be loaded before the WP function is available
+   *
+   * @param $plugin
+   *
+   * @return bool
+   */
+  public static function is_plugin_active_for_network($plugin) {
+    if ( !self::is_multisite() ) {
+      return false;
+    }
+
+    $plugins = get_site_option('active_sitewide_plugins');
+    if ( isset($plugins[$plugin]) ) {
+      return true;
+    }
+
+    return false;
+  }
+
   public function admin_ad_disable_css() { ?>
     <style>
       /* ////////////////////////////////////////////////////// */
@@ -504,35 +560,37 @@ new Admin_Ad_Sanitizer();
 // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #region Overrides
 
-class ThemeHunk_Notify {
-  // this class is here to disable an obnoxious slider advertisement.
-  public function __construct() {
-    if ( !isset($_COOKIE['thc_time']) ) {
-      // This cookie helps prevent the obnoxious banner from loading:
-      setcookie('thc_time', time() + ( 86457 * 30 ), PHP_INT_MAX);
-    }
-    foreach ( [ 'owl.carousel', 'hunk-companion-notice' ] as $remove ) {
-      // Attempt to remove any assets used by the obnoxious banner:
-      wp_dequeue_style($remove);
-      wp_deregister_style($remove);
-    }
-    foreach ( [ 'owl.carousel', 'hunk-companion-notify' ] as $remove ) {
-      // Attempt to remove any assets used by the obnoxious banner:
-      wp_dequeue_script($remove);
-      wp_deregister_script($remove);
-    }
-    foreach ( [
-      [ 'hook' => 'admin_init', 'method' => 'set_cookie' ],
-      [ 'hook' => 'admin_notices', 'method' => 'notify' ],
-      [ 'hook' => 'admin_enqueue_scripts', 'method' => 'enqueue' ],
-      [ 'hook' => 'admin_notices', 'method' => 'unset_cookie' ],
-    ] as $values ) {
-      // Attempt to remove any assets used by the obnoxious banner:
-      remove_action($values['hook'], [ $this, $values['method'] ]);
+if ( Admin_Ad_Sanitizer::is_plugin_active('themehunk-megamenu-plus/themehunk-megamenu.php') ) {
+  class ThemeHunk_Notify {
+    // this class is here to disable an obnoxious slider advertisement.
+    public function __construct() {
+      if ( !isset($_COOKIE['thc_time']) ) {
+        // This cookie helps prevent the obnoxious banner from loading:
+        setcookie('thc_time', time() + ( 86457 * 30 ), PHP_INT_MAX);
+      }
+      foreach ( [ 'owl.carousel', 'hunk-companion-notice' ] as $remove ) {
+        // Attempt to remove any assets used by the obnoxious banner:
+        wp_dequeue_style($remove);
+        wp_deregister_style($remove);
+      }
+      foreach ( [ 'owl.carousel', 'hunk-companion-notify' ] as $remove ) {
+        // Attempt to remove any assets used by the obnoxious banner:
+        wp_dequeue_script($remove);
+        wp_deregister_script($remove);
+      }
+      foreach ( [
+        [ 'hook' => 'admin_init', 'method' => 'set_cookie' ],
+        [ 'hook' => 'admin_notices', 'method' => 'notify' ],
+        [ 'hook' => 'admin_enqueue_scripts', 'method' => 'enqueue' ],
+        [ 'hook' => 'admin_notices', 'method' => 'unset_cookie' ],
+      ] as $values ) {
+        // Attempt to remove any assets used by the obnoxious banner:
+        remove_action($values['hook'], [ $this, $values['method'] ]);
+      }
     }
   }
-}
 
-new ThemeHunk_Notify();
+  new ThemeHunk_Notify();
+}
 
 #endregion Overrides
