@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.2.1  - Added: ThemeHunk Mega Menu admin advertisements.
  * 1.1.2    - Added: ThemeHunk Mega Menu advertisement slider.
  * 1.1.1.10 - Added: Astra remove starter templates cross-sell.
  * 1.1.1.9  - Added: Astra remove site-builder bait-and-switch.
@@ -160,6 +161,8 @@ class Admin_Ad_Sanitizer {
       #wpr-notice-confetti,
 
         /* Theme Hunk --------------------------- */
+      .notice:has(a[href*="utm_campaign=th_plugins"]),
+      .notice:has(a[href*="https://wpzita.com/royal-shop/"]),
       .th-notice-slide-wrapper,
 
         /* Simple History ----------------------- */
