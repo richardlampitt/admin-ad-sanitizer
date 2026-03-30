@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.2    - Added: ThemeHunk Mega Menu advertisement slider.
  * 1.1.1.10 - Added: Astra remove starter templates cross-sell.
  * 1.1.1.9  - Added: Astra remove site-builder bait-and-switch.
  * 1.1.1.8  - Added: Astra dashboard disabled features.
@@ -157,6 +158,9 @@ class Admin_Ad_Sanitizer {
       .wpr-plugin-update-notice div,
       .wpr-plugin-update-notice canvas,
       #wpr-notice-confetti,
+
+        /* Theme Hunk --------------------------- */
+      .th-notice-slide-wrapper,
 
         /* Simple History ----------------------- */
       .sh-PremiumFeaturesPostbox,
