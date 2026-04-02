@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.3
+ * Version: 1.1.3.1
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.3.1  - Added: Document Library Lite disabled functionality.
  * 1.1.3    - Added: Document Library Lite.
  * 1.1.2.4  - Bugfix: Fix overeager deregister calls.
  * 1.1.2.3  - Bugfix: Disable over-ambitious cookie date causing fatal error.
@@ -285,8 +286,11 @@ class Admin_Ad_Sanitizer {
       .barn2-promo-inner p:has(+ p .dlw-pro-only),
       .barn2-promo-inner h2:has(+ p + p .dlw-pro-only),
       .barn2-promo-inner p:has(> span > [href*="document-library-pro"]),
+      .barn2-promo-inner p:has(+ p > span > [href*="document-library-pro"]),
+      .barn2-promo-inner h2:has(+ p + p > span > [href*="document-library-pro"]),
       .barn2-promo-inner tr.readonly,
       .barn2-layout__header + div .promo,
+      .document-expiry-container:has(~ #dlw-document-expiry-popover [href*="document-library-pro"]),
 
         /* Monster Insights ---------------------- */
       .monsterinsights-metabox input[disabled],
