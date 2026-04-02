@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.3    - Added: Document Library Lite.
  * 1.1.2.4  - Bugfix: Fix overeager deregister calls.
  * 1.1.2.3  - Bugfix: Disable over-ambitious cookie date causing fatal error.
  * 1.1.2.2  - Added: ThemeHunk Mega Menu class override.
@@ -148,6 +149,10 @@ class Admin_Ad_Sanitizer {
       [data-dismissible*="ddp-newsletter"],
 
         /* Duplicate pages ---------------------- */
+
+      .barn2-plugins-promo-wrapper,
+
+        /* Duplicate pages ---------------------- */
       .duplicate_page_settings .r_dpmrs,
       .duplicate_page_settings .l_dpmrs,
       .duplicate_page_settings h1 > a,
@@ -274,6 +279,14 @@ class Admin_Ad_Sanitizer {
       #astra-dashboard-app :has(a[href*="page=astra&path=free-vs-pro"]) a[href*="&settings=version-control"],
       #astra-dashboard-app :has(a[href*="page=astra&path=free-vs-pro"]) a[href*="&settings=white-label"],
       #toplevel_page_astra li:has(a[href*="page=theme-builder-free"]),
+
+        /* Monster Insights ---------------------- */
+      .barn2-promo-inner p:has(.dlw-pro-only),
+      .barn2-promo-inner p:has(+ p .dlw-pro-only),
+      .barn2-promo-inner h2:has(+ p + p .dlw-pro-only),
+      .barn2-promo-inner p:has(> span > [href*="document-library-pro"]),
+      .barn2-promo-inner tr.readonly,
+      .barn2-layout__header + div .promo,
 
         /* Monster Insights ---------------------- */
       .monsterinsights-metabox input[disabled],
