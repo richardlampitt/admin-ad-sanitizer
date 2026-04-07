@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.3.3
+ * Version: 1.1.3.4
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.3.4  - Maintenance: Fix an incorrect code label.
  * 1.1.3.3  - Maintenance: Tidy up code region separators.
  * 1.1.3.2  - Maintenance: Tidy up changelog.
  * 1.1.3.1  - Added: Remove Document Library Lite disabled functionality.
@@ -285,7 +286,7 @@ class Admin_Ad_Sanitizer {
       #astra-dashboard-app :has(a[href*="page=astra&path=free-vs-pro"]) a[href*="&settings=white-label"],
       #toplevel_page_astra li:has(a[href*="page=theme-builder-free"]),
 
-        /* Monster Insights ---------------------- */
+        /* Document Library Lite ---------------------- */
       .barn2-promo-inner p:has(.dlw-pro-only),
       .barn2-promo-inner p:has(+ p .dlw-pro-only),
       .barn2-promo-inner h2:has(+ p + p .dlw-pro-only),
