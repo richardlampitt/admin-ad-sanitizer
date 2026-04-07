@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.3.1
+ * Version: 1.1.3.2
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,45 +13,46 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
- * 1.1.3.1  - Added: Document Library Lite disabled functionality.
- * 1.1.3    - Added: Document Library Lite.
+ * 1.1.3.2  - Bugfix: Tidy up changelog.
+ * 1.1.3.1  - Added: Remove Document Library Lite disabled functionality.
+ * 1.1.3    - Added: Remove Document Library Lite ads.
  * 1.1.2.4  - Bugfix: Fix overeager deregister calls.
  * 1.1.2.3  - Bugfix: Disable over-ambitious cookie date causing fatal error.
- * 1.1.2.2  - Added: ThemeHunk Mega Menu class override.
- * 1.1.2.1  - Added: ThemeHunk Mega Menu admin advertisements.
- * 1.1.2    - Added: ThemeHunk Mega Menu advertisement slider.
- * 1.1.1.10 - Added: Astra remove starter templates cross-sell.
- * 1.1.1.9  - Added: Astra remove site-builder bait-and-switch.
- * 1.1.1.8  - Added: Astra dashboard disabled features.
+ * 1.1.2.2  - Added: Remove ThemeHunk Mega Menu class override.
+ * 1.1.2.1  - Added: Remove ThemeHunk Mega Menu admin advertisements.
+ * 1.1.2    - Added: Remove ThemeHunk Mega Menu advertisement slider.
+ * 1.1.1.10 - Added: Remove Astra starter templates cross-sell.
+ * 1.1.1.9  - Added: Remove Astra site-builder bait-and-switch.
+ * 1.1.1.8  - Added: Remove Astra dashboard disabled features.
  * 1.1.1.7  - Bugfix: Fix incorrect selector.
- * 1.1.1.6  - Added: Astra full screen ad tab.
- * 1.1.1.5  - Added: Astra customizer fake tab.
+ * 1.1.1.6  - Added: Remove Astra full screen ad tab.
+ * 1.1.1.5  - Added: Remove Astra customizer fake tab.
  * 1.1.1.4  - Bugfix: Tighten specificity on selector.
- * 1.1.1.3  - Added: Astra dashboard support upsell.
- * 1.1.1.2  - Added: Astra dashboard plugin cross-sell/ disabled features.
- * 1.1.1.1  - Added: Astra dashboard disabled features.
- * 1.1.1.0  - Added: Astra Customizer huge upsell.
+ * 1.1.1.3  - Added: Remove Astra dashboard support upsell.
+ * 1.1.1.2  - Added: Remove Astra dashboard plugin cross-sell/ disabled features.
+ * 1.1.1.1  - Added: Remove Astra dashboard disabled features.
+ * 1.1.1.0  - Added: Remove Astra Customizer huge upsell.
  * 1.1.0.1  - Bugfix: Fix missing hook.
  * 1.1.0    - Feature: Change hook to affect customizer interface.
- * 1.0.12.1 - Added: Astra Customizer disabled features.
- * 1.0.12   - Added: Astra Customizer huge upsell.
- * 1.0.11.5 - Added: Yoast external link in menu.
+ * 1.0.12.1 - Added: Remove Astra Customizer disabled features.
+ * 1.0.12   - Added: Remove Astra Customizer huge upsell.
+ * 1.0.11.5 - Added: Remove Yoast external link in menu.
  * 1.0.11.4 - Bugfix: Incorrectly formatted CSS.
- * 1.0.11.3 - Added: Yoast disabled featured.
+ * 1.0.11.3 - Added: Remove Yoast disabled features.
  * 1.0.11.2 - Bugfix: Overeager Selector affecting too many items.
- * 1.0.11.1 - Added: Yoast upsells.
- * 1.0.11   - Added: Yoast upsells.
+ * 1.0.11.1 - Added: Remove Yoast upsells.
+ * 1.0.11   - Added: Remove Yoast upsells.
  * 1.0.10.1 - Bugfix: Fix incorrect selector.
  * 1.0.10   - Added: Remove RankMath animations.
  * 1.0.9    - Added: Remove disabled RankMath functionality.
  * 1.0.8    - Added: De-emphasize RankMath Pro notice.
  * 1.0.7.1  - Bugfix: Reduce specificity of selector to prevent accidental exclusion of legitimate notices.
- * 1.0.7    - Added: Royal Elementor Addons update notification upsells.
- * 1.0.7    - Added: Elementor update notification upsells.
- * 1.0.6    - Added: UpdraftPlus massive notification upsell hijack.
+ * 1.0.7    - Added: Remove Royal Elementor Addons update notification upsell hijacks.
+ * 1.0.7    - Added: Remove Elementor update notification upsell hijacks.
+ * 1.0.6    - Added: Remove UpdraftPlus massive notification upsell hijack.
  * 1.0.5.1  - Bugfix: Incorrect selector.
- * 1.0.5    - Added: Smashballoons Instagram Feed unneeded icon.
- * 1.0.4    - Added: Smashballoons Instagram Feed plugin upsell.
+ * 1.0.5    - Added: Remove Smashballoons Instagram Feed unneeded icon.
+ * 1.0.4    - Added: Remove Smashballoons Instagram Feed plugin upsell.
  * 1.0.3    - Added: Get Shortcodes.
  * 1.0.2    - Added: Profile Builder.
  * 1.0.1    - Added: Enhanced Text Widget.
