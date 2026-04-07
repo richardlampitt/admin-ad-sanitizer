@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.3.2
+ * Version: 1.1.3.3
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,7 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
- * 1.1.3.2  - Bugfix: Tidy up changelog.
+ * 1.1.3.3  - Maintenance: Tidy up code region separators.
+ * 1.1.3.2  - Maintenance: Tidy up changelog.
  * 1.1.3.1  - Added: Remove Document Library Lite disabled functionality.
  * 1.1.3    - Added: Remove Document Library Lite ads.
  * 1.1.2.4  - Bugfix: Fix overeager deregister calls.
@@ -58,6 +59,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
  * 1.0.1    - Added: Enhanced Text Widget.
  * 1.0.0    - Added: AIO Plugins and Elements Kit.
  */
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class Admin_Ad_Sanitizer {
 
@@ -578,6 +581,8 @@ class Admin_Ad_Sanitizer {
 new Admin_Ad_Sanitizer();
 
 // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #region Overrides
 
 if ( Admin_Ad_Sanitizer::is_plugin_active('themehunk-megamenu-plus/themehunk-megamenu.php') ) {
@@ -618,3 +623,4 @@ if ( Admin_Ad_Sanitizer::is_plugin_active('themehunk-megamenu-plus/themehunk-meg
 }
 
 #endregion Overrides
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
