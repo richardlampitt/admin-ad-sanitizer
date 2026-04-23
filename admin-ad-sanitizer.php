@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.3.4
+ * Version: 1.1.4
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.4    - Bugfix: Adjust background-color enforcement so that menu icons and update notifications remain visible.
  * 1.1.3.4  - Maintenance: Fix an incorrect code label.
  * 1.1.3.3  - Maintenance: Tidy up code region separators.
  * 1.1.3.2  - Maintenance: Tidy up changelog.
@@ -354,7 +355,7 @@ class Admin_Ad_Sanitizer {
           &:hover,
           &:hover span,
           &:hover div {
-            background: inherit !important;
+            background-color: inherit !important;
             color: inherit !important;
           }
         }
@@ -380,6 +381,16 @@ class Admin_Ad_Sanitizer {
           }
         }
       }
+
+      #adminmenu li {
+        /* Restore WordPress default behaviour for update notifications */
+        & a.wp-has-current-submenu .update-plugins,
+        &.current a .awaiting-mod {
+          background-color: #d63638 !important;
+        }
+      }
+
+
 
       /* ------------------------------ */
       /* Revert any admin-menu changes */
