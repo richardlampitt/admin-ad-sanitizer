@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.4.1
+ * Version: 1.1.5
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.5    - Added: Temporary Login Without Password cross-sell.
  * 1.1.4.1  - Tweak: Tweak a comment.
  * 1.1.4    - Bugfix: Adjust background-color enforcement so that menu icons and update notifications remain visible.
  * 1.1.3.4  - Maintenance: Fix an incorrect code label.
@@ -232,6 +233,10 @@ class Admin_Ad_Sanitizer {
       .wpr-plugin-update-notice canvas,
       #wpr-notice-confetti,
 
+        /* Temporary Login Without Password ----- */
+      #tlwp_es_mailer_promotion_notice,
+      .notice:has([href*="/plugin-install.php?s=icegram%2520mailer"]),
+
         /* Theme Hunk --------------------------- */
       .notice:has(a[href*="utm_campaign=th_plugins"]),
       .notice:has(a[href*="https://wpzita.com/royal-shop/"]),
@@ -390,7 +395,6 @@ class Admin_Ad_Sanitizer {
           background-color: #d63638 !important;
         }
       }
-
 
 
       /* ------------------------------ */
