@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.4
+ * Version: 1.1.4.1
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.4.1  - Tweak: Tweak a comment.
  * 1.1.4    - Bugfix: Adjust background-color enforcement so that menu icons and update notifications remain visible.
  * 1.1.3.4  - Maintenance: Fix an incorrect code label.
  * 1.1.3.3  - Maintenance: Tidy up code region separators.
@@ -128,7 +129,7 @@ class Admin_Ad_Sanitizer {
       /* region Admin Area Upsell Disable */
 
       /* ====================================== */
-      /* region Completely disable the most egregious nags: */
+      /* region Completely disable the most egregious nags and ads: */
 
       /* ACF ---------------------------------- */
       #post-body #acf-field-group-pro-features,
