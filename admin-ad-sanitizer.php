@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.6
+ * Version: 1.2.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.2.0    - Feature: Add support for WordPress 7 admin ui.
+ * 1.1.7    - Added: Forminator admin-notice ad.
  * 1.1.6    - Added: WP-Bakery admin-notice ad on update.
  * 1.1.5    - Added: Temporary Login Without Password cross-sell.
  * 1.1.4.1  - Tweak: Tweak a comment.
@@ -159,7 +161,6 @@ class Admin_Ad_Sanitizer {
       [data-dismissible*="ddp-newsletter"],
 
         /* Duplicate pages ---------------------- */
-
       .barn2-plugins-promo-wrapper,
 
         /* Duplicate pages ---------------------- */
@@ -397,6 +398,10 @@ class Admin_Ad_Sanitizer {
         & a.wp-has-current-submenu .update-plugins,
         &.current a .awaiting-mod {
           background-color: #d63638 !important;
+
+          .admin-color-modern & {
+            background-color: var(--wp-admin-theme-color, #72aee6fe) !important;
+          }
         }
       }
 
@@ -450,6 +455,20 @@ class Admin_Ad_Sanitizer {
       }
 
       /* ------------------------------ */
+      /* Remove animations */
+      /* ------------------------------ */
+
+      #rank-math-dashboard-page *,
+      #rank-math-dashboard-page .rank-math-button.components-button.button-animate,
+      #end-selectors-list {
+        &,
+        &::before,
+        &::after {
+          animation: unset !important;
+        }
+      }
+
+      /* ------------------------------ */
       /* Revert any less-annoying notice changes: */
       /* ------------------------------ */
 
@@ -471,23 +490,11 @@ class Admin_Ad_Sanitizer {
           font-weight: 600 !important;
         }
         & a {
-          &:hover, &:focus, &:focus-visible {
+          &:hover,
+          &:focus,
+          &:focus-visible {
             color: var(--wp-admin-theme-color-darker-10) !important;
           }
-        }
-      }
-
-      /* ------------------------------ */
-      /* Remove animations */
-      /* ------------------------------ */
-
-      #rank-math-dashboard-page *,
-      #rank-math-dashboard-page .rank-math-button.components-button.button-animate,
-      #end-selectors-list {
-        &,
-        &::before,
-        &::after {
-          animation: unset !important;
         }
       }
 
@@ -497,14 +504,52 @@ class Admin_Ad_Sanitizer {
       /* ====================================== */
       /* region Fix update notification content: */
 
+      /* EHE */
+      #ehe-admin-cb,
+        /* forminator */
+      [data-notice-slug="forminator_promote_free_plan"],
+        /* WP Bakery */
+      .updated.wpb-notice,
+        /* Royal Elementor Plugins */
       .wpr-plugin-update-notice,
       .end-selectors-list {
+        /* ----------------------------- */
+        /*#region Enforce consistent appearance */
+
+        box-sizing: content-box; /* for enforcing min-height that matches font size */
+        display: flex !important;
+        gap: 0.125em !important;
         background: #fefefe !important;
         border: 1px solid #c3c4c7fe !important;
-        border-left-color: #72aee6fe !important;
+        border-left-color: var(--wp-admin-theme-color, #72aee6fe) !important;
         border-left-width: 4px !important;
         box-shadow: 0 1px 1px #0000000a !important;
         padding: 0.5rem 0.75rem !important;
+        min-height: 1.5em !important;
+
+        .admin-color-modern & {
+          padding: 0.875rem !important;
+          border-block: none !important;
+          border-inline-end: none !important;
+          box-shadow: none !important;
+
+          &.notice-success,
+          &.updated {
+            border-left-color: var(--wp-admin-theme-updated-color, #4ab866);
+            background-color: #eff9f1 !important;
+          }
+        }
+
+        & div {
+          display: contents !important;
+          font-size: 0 !important;
+        }
+
+        & :not(div):not(.notice-dismiss),
+        & img,
+        & svg {
+          display: none !important;
+        }
 
         &::after,
         &::before {
@@ -517,11 +562,29 @@ class Admin_Ad_Sanitizer {
         }
       }
 
-      .wpr-plugin-update-notice::after {
-        content: "Royal Elementor Plugins" !important;
-      }
+      /*#endregion Enforce consistent appearance */
+      /* ----------------------------- */
 
-      /* Elementor Upsells */
+      /* ----------------------------- */
+      /*#region Replacement labels */
+
+      /*@formatter:off*/
+
+      /* forminator */
+      [data-notice-slug="forminator_promote_free_plan"]::after { content: "Forminator" !important; }
+
+      /* Royal Elementor Plugins */
+      .updated.wpb-notice::after { content: "WP Bakery" !important; }
+
+      /* Royal Elementor Plugins */
+      .wpr-plugin-update-notice::after { content: "Royal Elementor Plugins" !important; }
+
+      /*@formatter:on*/
+      /*#endregion Replacement labels */
+      /* ----------------------------- */
+
+      /* ----------------------------- */
+      /*#region Elementor Upsells */
       div:has( > .MuiBox-root .notice-dismiss) {
         display: block !important;
         background: #fefefe !important;
@@ -566,6 +629,9 @@ class Admin_Ad_Sanitizer {
         }
       }
 
+      /*#endregion Elementor Upsells */
+      /* ----------------------------- */
+
       /* endregion */
       /* ====================================== */
 
@@ -589,7 +655,6 @@ class Admin_Ad_Sanitizer {
 
       /* endregion */
       /* ////////////////////////////////////////////////////// */
-
     </style>
   <?php }
 
