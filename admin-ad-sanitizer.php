@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.2.0
+ * Version: 1.2.0.1
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,9 +13,10 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
- * 1.2.0    - Feature: Add support for WordPress 7 admin ui.
- * 1.1.7    - Added: Forminator admin-notice ad.
- * 1.1.6    - Added: WP-Bakery admin-notice ad on update.
+ * 1.2.0.1  - Tweak: Update element upsell reversion styling for WordPress 7 admin UI.
+ * 1.2.0    - Feature: Add support for WordPress 7 admin UI.
+ * 1.1.7    - Added: Forminator admin notice ad.
+ * 1.1.6    - Added: WP-Bakery admin notice ad on update.
  * 1.1.5    - Added: Temporary Login Without Password cross-sell.
  * 1.1.4.1  - Tweak: Tweak a comment.
  * 1.1.4    - Bugfix: Adjust background-color enforcement so that menu icons and update notifications remain visible.
