@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.1.5
+ * Version: 1.1.6
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.1.6    - Added: WP-Bakery admin-notice ad on update.
  * 1.1.5    - Added: Temporary Login Without Password cross-sell.
  * 1.1.4.1  - Tweak: Tweak a comment.
  * 1.1.4    - Bugfix: Adjust background-color enforcement so that menu icons and update notifications remain visible.
@@ -257,6 +258,9 @@ class Admin_Ad_Sanitizer {
 
         /* WP Bakery ---------------------------- */
       #vc_license-activation-notice,
+      .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_medium=banner"]),
+      .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_content=notification-cta"]),
+      .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_activity=launch"]),
 
         /* WP Forms ----------------------------- */
       .wpforms-dash-widget-block-upgrade,
