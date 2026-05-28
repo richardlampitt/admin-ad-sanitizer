@@ -4,8 +4,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Plugin Name: Admin Advertisement Sanitizer
- * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.2.1.1
+ * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
+ * Version: 1.2.1.2
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.2.1.2  - Tweak: Update plugin description.
  * 1.2.1.1  - Added: Remove Smash Balloons bait-and-switch install links in admin menu.
  * 1.2.1    - Added: Remove Smash Balloons admin notice upsells.
  * 1.2.0.1  - Tweak: Update element upsell reversion styling for WordPress 7 admin UI.
