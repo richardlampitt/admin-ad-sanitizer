@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides obnoxious advertisements & upsells, notices hijacked for advertisements, and review nags in the administration area.
- * Version: 1.2.0.1
+ * Version: 1.2.1.1
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.2.1.1  - Added: Remove Smash Balloons bait-and-switch install links in admin menu.
+ * 1.2.1    - Added: Remove Smash Balloons admin notice upsells.
  * 1.2.0.1  - Tweak: Update element upsell reversion styling for WordPress 7 admin UI.
  * 1.2.0    - Feature: Add support for WordPress 7 admin UI.
  * 1.1.7    - Added: Forminator admin notice ad.
@@ -133,6 +135,7 @@ class Admin_Ad_Sanitizer {
       /* ////////////////////////////////////////////////////// */
       /* region Admin Area Upsell Disable */
 
+
       /* ====================================== */
       /* region Completely disable the most egregious nags and ads: */
 
@@ -248,6 +251,11 @@ class Admin_Ad_Sanitizer {
         /* Simple History ----------------------- */
       .sh-PremiumFeaturesPostbox,
 
+        /* Smash Balloons ----------------------- */
+      .ctf-settings-cta,
+      .ctf-cta-toggle-features,
+      a:has(span[class^="ctf_get"]), /* bait-and-switch / cross-sell installer in admin menu */
+
         /* Updraft ------------------------------ */
       #updraft-dashnotice,
       .updraft-ad-container,
@@ -287,6 +295,7 @@ class Admin_Ad_Sanitizer {
 
       /* endregion */
       /* ====================================== */
+
 
       /* ====================================== */
       /* region Remove disabled functionality: */
@@ -333,6 +342,7 @@ class Admin_Ad_Sanitizer {
       /* endregion */
       /* ====================================== */
 
+
       /* ====================================== */
       /* region De-emphasis on less annoying things: */
 
@@ -369,7 +379,26 @@ class Admin_Ad_Sanitizer {
           &:hover div {
             background-color: inherit !important;
             color: inherit !important;
+            font-size: inherit !important;
+            font-weight: inherit !important;
           }
+        }
+      }
+
+      /* Smash Balloons */
+      [class^="ctf-"][class*="-cta"],
+      [class^="ctf-"][class*="-cta"] {
+        &,
+        & a,
+        & span,
+        & div,
+        &:hover,
+        &:hover span,
+        &:hover div {
+          font-size: inherit !important;
+          font-weight: inherit !important;
+          background: inherit !important;
+          color: inherit !important;
         }
       }
 
@@ -456,20 +485,6 @@ class Admin_Ad_Sanitizer {
       }
 
       /* ------------------------------ */
-      /* Remove animations */
-      /* ------------------------------ */
-
-      #rank-math-dashboard-page *,
-      #rank-math-dashboard-page .rank-math-button.components-button.button-animate,
-      #end-selectors-list {
-        &,
-        &::before,
-        &::after {
-          animation: unset !important;
-        }
-      }
-
-      /* ------------------------------ */
       /* Revert any less-annoying notice changes: */
       /* ------------------------------ */
 
@@ -499,11 +514,29 @@ class Admin_Ad_Sanitizer {
         }
       }
 
+      /* ------------------------------ */
+      /* Remove animations */
+      /* ------------------------------ */
+
+      #rank-math-dashboard-page *,
+      #rank-math-dashboard-page .rank-math-button.components-button.button-animate,
+      #end-selectors-list {
+        &,
+        &::before,
+        &::after {
+          animation: unset !important;
+        }
+      }
+
       /* endregion */
       /* ====================================== */
 
+
       /* ====================================== */
       /* region Fix update notification content: */
+
+      /* ----------------------------- */
+      /*#region Enforce consistent appearance */
 
       /* EHE */
       #ehe-admin-cb,
@@ -514,8 +547,6 @@ class Admin_Ad_Sanitizer {
         /* Royal Elementor Plugins */
       .wpr-plugin-update-notice,
       .end-selectors-list {
-        /* ----------------------------- */
-        /*#region Enforce consistent appearance */
 
         box-sizing: content-box; /* for enforcing min-height that matches font size */
         display: flex !important;
@@ -546,9 +577,7 @@ class Admin_Ad_Sanitizer {
           font-size: 0 !important;
         }
 
-        & :not(div):not(.notice-dismiss),
-        & img,
-        & svg {
+        & :not(div):not(.notice-dismiss) {
           display: none !important;
         }
 
@@ -585,15 +614,133 @@ class Admin_Ad_Sanitizer {
       /* ----------------------------- */
 
       /* ----------------------------- */
-      /*#region Elementor Upsells */
-      div:has( > .MuiBox-root .notice-dismiss) {
-        display: block !important;
+      /*#region Notice area upsells and ads, unrelated to updates */
+
+      /* Small Balloons */
+      #ctf-notifications,
+      #end-selectors-list {
+        box-sizing: content-box; /* for enforcing min-height that matches font size */
+        display: flex !important;
+        gap: 0.125em !important;
         background: #fefefe !important;
         border: 1px solid #c3c4c7fe !important;
-        border-left-color: #72aee6fe !important;
+        border-left-color: var(--wp-admin-theme-color, #72aee6fe) !important;
         border-left-width: 4px !important;
         box-shadow: 0 1px 1px #0000000a !important;
         padding: 0.5rem 0.75rem !important;
+        min-height: 1.5em !important;
+
+        .admin-color-modern & {
+          padding: 0.875rem !important;
+          border-block: none !important;
+          border-inline-end: none !important;
+          box-shadow: none !important;
+
+          &.notice-success,
+          &.updated {
+            border-left-color: var(--wp-admin-theme-updated-color, #4ab866);
+            background-color: #eff9f1 !important;
+          }
+        }
+
+        & [href*="utm_"] {
+          display: none !important;
+        }
+
+        &:has(.messages) {
+          & h1,
+          & h2,
+          & h3,
+          & h4,
+          & h5,
+          & h6,
+          & div,
+          & a[href],
+          & p {
+            font-size: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            height: unset !important;
+            width: unset !important;
+            position: static !important;
+          }
+
+          & .messages {
+            display: flex !important;
+            align-items: center !important;
+          }
+
+          & .message {
+            &.current {
+              display: flex !important;
+              align-items: center !important;
+            }
+
+            &::after,
+            &::before {
+              content: "";
+              display: inline-flex;
+              align-items: center;
+              line-height: 1;
+              font-size: 0.8125rem;
+              padding-inline-end: 0.325em;
+            }
+
+            &::after {
+              content: "This notice is unimportant and can be dismissed."
+            }
+
+            & :not(.dismiss):not(.dismiss-notice) {
+              display: contents !important;
+            }
+          }
+        }
+
+        &:not(:has(.messages)) {
+          &::after,
+          &::before {
+            content: "";
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+            font-size: 0.8125rem;
+            padding-inline-end: 0.325em;
+          }
+
+          &::after {
+            content: "This notice is unimportant and can be dismissed."
+          }
+        }
+      }
+
+      /* Elementor */
+      div:has( > .MuiBox-root .notice-dismiss),
+      #end-selectors-list {
+        box-sizing: content-box; /* for enforcing min-height that matches font size */
+        display: flex !important;
+        gap: 0.125em !important;
+        background: #fefefe !important;
+        border: 1px solid #c3c4c7fe !important;
+        border-left-color: var(--wp-admin-theme-color, #72aee6fe) !important;
+        border-left-width: 4px !important;
+        box-shadow: 0 1px 1px #0000000a !important;
+        padding: 0.5rem 0.75rem !important;
+        min-height: 1.5em !important;
+
+        .admin-color-modern & {
+          padding: 0.875rem !important;
+          border-block: none !important;
+          border-inline-end: none !important;
+          box-shadow: none !important;
+
+          &.notice-success,
+          &.updated {
+            border-left-color: var(--wp-admin-theme-updated-color, #4ab866);
+            background-color: #eff9f1 !important;
+          }
+        }
 
         & .MuiBox-root:has(.notice-dismiss) {
           &,
@@ -630,11 +777,12 @@ class Admin_Ad_Sanitizer {
         }
       }
 
-      /*#endregion Elementor Upsells */
+      /*#endregion */
       /* ----------------------------- */
 
       /* endregion */
       /* ====================================== */
+
 
       /* ====================================== */
       /* region Discorage clicking on trackers: */
