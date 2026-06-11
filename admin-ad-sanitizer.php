@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.2.2    - Added: Events Manager full-screen ad modal.
  * 1.2.1.2  - Tweak: Update plugin description.
  * 1.2.1.1  - Added: Remove Smash Balloons bait-and-switch install links in admin menu.
  * 1.2.1    - Added: Remove Smash Balloons admin notice upsells.
@@ -181,6 +182,10 @@ class Admin_Ad_Sanitizer {
       #tifm_new_feature_notice,
       .notice:has(span[class*="tifm-grow"]),
       .notice:has(a[href*="plugins.php?s=Enhanced%20Text%20Widget"]),
+
+        /* Event Manager ------------------------ */
+      #em-promo-popup,
+      .pixelbones.em-admin-modal.active,
 
         /* Get Shortcodes ----------------------- */
       .su-admin-c-notice-pro:has([href*="getshortcodes.com/pricing"]),
