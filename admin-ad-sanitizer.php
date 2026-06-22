@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.4.0.0
+ * Version: 1.5.0.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.5.0.0  - Added: Remove Accessibility Banner admin notice hijack (from cookie-law-info)
  * 1.4.0.0  - Added: Remove Elementor admin notice hijack.
  * 1.3.0.0  - Added: Remove Theme Isle upsell in dashboard.
  * 1.2.2.1  - Bugfix: Fix version number.
@@ -628,7 +629,9 @@ class Admin_Ad_Sanitizer {
       /* ----------------------------- */
       /*#region Notice area upsells and ads, unrelated to updates */
 
-      /* Elementor */
+      /* cookie-law-info */
+      #wbte_accessibility_banner,
+        /* Elementor */
       #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
         /* Small Balloons */
       #ctf-notifications,
@@ -659,11 +662,14 @@ class Admin_Ad_Sanitizer {
         }
       }
 
-      /* Elementor */
+      /* cookie-law-info */
+      #wbte_accessibility_banner,
+        /* Elementor */
       #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
       #end-selectors-list {
-        & :not(.notice-dismiss):not(.screen-reader-text) {
+        & :not(.notice-dismiss):not(.screen-reader-text):not(.wbte_accessibility_banner_dismiss_btn):not(.dashicons-no-alt) {
           display: contents;
+          font-size: 0 !important;
         }
         & .e-conversion-banner__content {
           display: none !important;
