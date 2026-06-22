@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.5.0.0
+ * Version: 1.6.0.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,9 +13,10 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
- * 1.5.0.0  - Added: Remove Accessibility Banner admin notice hijack (from cookie-law-info)
+ * 1.6.0.0  - Added: Remove Cookie Yes admin notice hijack.
+ * 1.5.0.0  - Added: Remove Accessibility Banner admin notice hijack (from cookie-law-info).
  * 1.4.0.0  - Added: Remove Elementor admin notice hijack.
- * 1.3.0.0  - Added: Remove Theme Isle upsell in dashboard.
+ * 1.3.0.0  - Added: Remove Theme Isle dashboard upsell.
  * 1.2.2.1  - Bugfix: Fix version number.
  * 1.2.2    - Added: Events Manager full-screen ad modal.
  * 1.2.1.2  - Tweak: Update plugin description.
