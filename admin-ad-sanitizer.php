@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.3.0.0
+ * Version: 1.4.0.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,7 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
- * 1.3.0.0  - Added: Theme Isle upsell in dashboard.
+ * 1.4.0.0  - Added: Remove Elementor admin notice hijack.
+ * 1.3.0.0  - Added: Remove Theme Isle upsell in dashboard.
  * 1.2.2.1  - Bugfix: Fix version number.
  * 1.2.2    - Added: Events Manager full-screen ad modal.
  * 1.2.1.2  - Tweak: Update plugin description.
@@ -470,7 +471,7 @@ class Admin_Ad_Sanitizer {
           }
 
           & div,
-          & span {
+          & span:not(.update-plugins) {
             border: unset !important;
             height: unset !important;
             margin: unset !important;
@@ -627,11 +628,14 @@ class Admin_Ad_Sanitizer {
       /* ----------------------------- */
       /*#region Notice area upsells and ads, unrelated to updates */
 
-      /* Small Balloons */
+      /* Elementor */
+      #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
+        /* Small Balloons */
       #ctf-notifications,
       #end-selectors-list {
         box-sizing: content-box; /* for enforcing min-height that matches font size */
         display: flex !important;
+        max-width: 98%;
         gap: 0.125em !important;
         background: #fefefe !important;
         border: 1px solid #c3c4c7fe !important;
@@ -653,7 +657,35 @@ class Admin_Ad_Sanitizer {
             background-color: #eff9f1 !important;
           }
         }
+      }
 
+      /* Elementor */
+      #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
+      #end-selectors-list {
+        & :not(.notice-dismiss):not(.screen-reader-text) {
+          display: contents;
+        }
+        & .e-conversion-banner__content {
+          display: none !important;
+        }
+        &::after,
+        &::before {
+          content: "";
+          display: inline-flex;
+          align-items: center;
+          line-height: 1;
+          font-size: 0.8125rem;
+          padding-inline-end: 0.325em;
+        }
+
+        &::after {
+          content: "This notice is unimportant and can be dismissed."
+        }
+      }
+
+      /* Small Balloons */
+      #ctf-notifications,
+      #end-selectors-list {
         & [href*="utm_"] {
           display: none !important;
         }
@@ -726,7 +758,7 @@ class Admin_Ad_Sanitizer {
         }
       }
 
-      /* Elementor */
+
       div:has( > .MuiBox-root .notice-dismiss),
       #end-selectors-list {
         box-sizing: content-box; /* for enforcing min-height that matches font size */
