@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.6.0.0
+ * Version: 1.7.0.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.7.0.0  - Added: Remove WP Clone admin notice hijack.
  * 1.6.0.0  - Added: Remove Cookie Yes admin notice hijack.
  * 1.5.0.0  - Added: Remove Accessibility Banner admin notice hijack (from cookie-law-info).
  * 1.4.0.0  - Added: Remove Elementor admin notice hijack.
@@ -285,6 +286,9 @@ class Admin_Ad_Sanitizer {
       .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_medium=banner"]),
       .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_content=notification-cta"]),
       .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_activity=launch"]),
+
+        /* WP Forms ----------------------------- */
+      .ib-banners-wrapper:has([href*="bit.ly"]),
 
         /* WP Forms ----------------------------- */
       .wpforms-dash-widget-block-upgrade,
