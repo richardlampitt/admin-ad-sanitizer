@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.9.2.0  - Added: Remove TM Template persistent hijacks and upsell hooks.
  * 1.9.1.0  - Added: Remove TM Template admin menu offsite-upsell.
  * 1.9.0.0  - Added: Remove TM Template admin notice hijack.
  * 1.8.2.0  - Added: Remove Yoast disabled functionality.
@@ -934,9 +935,27 @@ class Admin_Ad_Sanitizer {
     </style>
   <?php }
 
+  protected static function remove_hooks_mnssp() {
+    remove_menu_page('mnssp_templates');
+    add_action('admin_menu', function() {
+      remove_menu_page('mnssp_templates');
+    }, PHP_INT_MAX);
+
+    remove_action('admin_notices', 'mnssp_admin_notice');
+    remove_action('admin_notices', 'mnssp_admin_notice_with_html');
+    foreach ( [ 'admin_notices', 'admin_init' ] as $hook ) {
+      add_action($hook, function() {
+        remove_action('admin_notices', 'mnssp_admin_notice');
+        remove_action('admin_notices', 'mnssp_admin_notice_with_html');
+      }, PHP_INT_MAX);
+    }
+  }
+
   public function __construct() {
     add_action('admin_head', [ $this, 'admin_ad_disable_css' ], PHP_INT_MAX);
     add_action('customize_controls_enqueue_scripts', [ $this, 'admin_ad_disable_css' ], PHP_INT_MAX);
+
+    self::remove_hooks_mnssp();
   }
 }
 
