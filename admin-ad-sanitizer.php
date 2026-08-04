@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.9.2.1
+ * Version: 1.9.2.2
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.9.2.2  - Bugfix: PHP notice caused by duplicate remove_menu_link().
  * 1.9.2.1  - Bugfix: Fix version number.
  * 1.9.2.0  - Added: Remove TM Template persistent hijacks and upsell hooks.
  * 1.9.1.0  - Added: Remove TM Template admin menu offsite-upsell.
@@ -937,7 +938,6 @@ class Admin_Ad_Sanitizer {
   <?php }
 
   protected static function remove_hooks_mnssp() {
-    remove_menu_page('mnssp_templates');
     add_action('admin_menu', function() {
       remove_menu_page('mnssp_templates');
     }, PHP_INT_MAX);
