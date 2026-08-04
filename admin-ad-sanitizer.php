@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.8.2.0
+ * Version: 1.9.1.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.9.1.0  - Added: Remove TM Template admin menu offsite-upsell.
+ * 1.9.0.0  - Added: Remove TM Template admin notice hijack.
  * 1.8.2.0  - Added: Remove Yoast disabled functionality.
  * 1.8.1.0  - Added: Remove Yoast admin menu upsells.
  * 1.8.0.0  - Added: Remove Yoast admin notice hijack.
@@ -22,27 +24,27 @@ defined('ABSPATH') || exit; // exit if accessed directly.
  * 1.4.0.0  - Added: Remove Elementor admin notice hijack.
  * 1.3.0.0  - Added: Remove Theme Isle dashboard upsell.
  * 1.2.2.1  - Bugfix: Fix version number.
- * 1.2.2    - Added: Events Manager full-screen ad modal.
+ * 1.2.2.0  - Added: Events Manager full-screen ad modal.
  * 1.2.1.2  - Tweak: Update plugin description.
  * 1.2.1.1  - Added: Remove Smash Balloons bait-and-switch install links in admin menu.
- * 1.2.1    - Added: Remove Smash Balloons admin notice upsells.
+ * 1.2.1.0  - Added: Remove Smash Balloons admin notice upsells.
  * 1.2.0.1  - Tweak: Update element upsell reversion styling for WordPress 7 admin UI.
- * 1.2.0    - Feature: Add support for WordPress 7 admin UI.
- * 1.1.7    - Added: Forminator admin notice ad.
- * 1.1.6    - Added: WP-Bakery admin notice ad on update.
- * 1.1.5    - Added: Temporary Login Without Password cross-sell.
+ * 1.2.0.0  - Feature: Add support for WordPress 7 admin UI.
+ * 1.1.7.0  - Added: Forminator admin notice ad.
+ * 1.1.6.0  - Added: WP-Bakery admin notice ad on update.
+ * 1.1.5.0  - Added: Temporary Login Without Password cross-sell.
  * 1.1.4.1  - Tweak: Tweak a comment.
- * 1.1.4    - Bugfix: Adjust background-color enforcement so that menu icons and update notifications remain visible.
+ * 1.1.4.0  - Bugfix: Adjust background-color enforcement so that menu icons and update notifications remain visible.
  * 1.1.3.4  - Maintenance: Fix an incorrect code label.
  * 1.1.3.3  - Maintenance: Tidy up code region separators.
  * 1.1.3.2  - Maintenance: Tidy up changelog.
  * 1.1.3.1  - Added: Remove Document Library Lite disabled functionality.
- * 1.1.3    - Added: Remove Document Library Lite ads.
+ * 1.1.3.0  - Added: Remove Document Library Lite ads.
  * 1.1.2.4  - Bugfix: Fix overeager deregister calls.
  * 1.1.2.3  - Bugfix: Disable over-ambitious cookie date causing fatal error.
  * 1.1.2.2  - Added: Remove ThemeHunk Mega Menu class override.
  * 1.1.2.1  - Added: Remove ThemeHunk Mega Menu admin advertisements.
- * 1.1.2    - Added: Remove ThemeHunk Mega Menu advertisement slider.
+ * 1.1.2.0  - Added: Remove ThemeHunk Mega Menu advertisement slider.
  * 1.1.1.10 - Added: Remove Astra starter templates cross-sell.
  * 1.1.1.9  - Added: Remove Astra site-builder bait-and-switch.
  * 1.1.1.8  - Added: Remove Astra dashboard disabled features.
@@ -55,7 +57,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
  * 1.1.1.1  - Added: Remove Astra dashboard disabled features.
  * 1.1.1.0  - Added: Remove Astra Customizer huge upsell.
  * 1.1.0.1  - Bugfix: Fix missing hook.
- * 1.1.0    - Feature: Change hook to affect customizer interface.
+ * 1.1.0.0  - Feature: Change hook to affect customizer interface.
  * 1.0.12.1 - Added: Remove Astra Customizer disabled features.
  * 1.0.12   - Added: Remove Astra Customizer huge upsell.
  * 1.0.11.5 - Added: Remove Yoast external link in menu.
@@ -63,22 +65,22 @@ defined('ABSPATH') || exit; // exit if accessed directly.
  * 1.0.11.3 - Added: Remove Yoast disabled features.
  * 1.0.11.2 - Bugfix: Overeager Selector affecting too many items.
  * 1.0.11.1 - Added: Remove Yoast upsells.
- * 1.0.11   - Added: Remove Yoast upsells.
+ * 1.0.11.0 - Added: Remove Yoast upsells.
  * 1.0.10.1 - Bugfix: Fix incorrect selector.
- * 1.0.10   - Added: Remove RankMath animations.
- * 1.0.9    - Added: Remove disabled RankMath functionality.
- * 1.0.8    - Added: De-emphasize RankMath Pro notice.
+ * 1.0.10.0 - Added: Remove RankMath animations.
+ * 1.0.9.0  - Added: Remove disabled RankMath functionality.
+ * 1.0.8.0  - Added: De-emphasize RankMath Pro notice.
  * 1.0.7.1  - Bugfix: Reduce specificity of selector to prevent accidental exclusion of legitimate notices.
- * 1.0.7    - Added: Remove Royal Elementor Addons update notification upsell hijacks.
- * 1.0.7    - Added: Remove Elementor update notification upsell hijacks.
- * 1.0.6    - Added: Remove UpdraftPlus massive notification upsell hijack.
+ * 1.0.7.0  - Added: Remove Royal Elementor Addons update notification upsell hijacks.
+ * 1.0.7.0  - Added: Remove Elementor update notification upsell hijacks.
+ * 1.0.6.0  - Added: Remove UpdraftPlus massive notification upsell hijack.
  * 1.0.5.1  - Bugfix: Incorrect selector.
- * 1.0.5    - Added: Remove Smashballoons Instagram Feed unneeded icon.
- * 1.0.4    - Added: Remove Smashballoons Instagram Feed plugin upsell.
- * 1.0.3    - Added: Get Shortcodes.
- * 1.0.2    - Added: Profile Builder.
- * 1.0.1    - Added: Enhanced Text Widget.
- * 1.0.0    - Added: AIO Plugins and Elements Kit.
+ * 1.0.5.0  - Added: Remove Smashballoons Instagram Feed unneeded icon.
+ * 1.0.4.0  - Added: Remove Smashballoons Instagram Feed plugin upsell.
+ * 1.0.3.0  - Added: Get Shortcodes.
+ * 1.0.2.0  - Added: Profile Builder.
+ * 1.0.1.0  - Added: Enhanced Text Widget.
+ * 1.0.0.0  - Added: AIO Plugins and Elements Kit.
  */
 
 // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -265,6 +267,10 @@ class Admin_Ad_Sanitizer {
       .notice:has(a[href*="utm_campaign=th_plugins"]),
       .notice:has(a[href*="https://wpzita.com/royal-shop/"]),
       .th-notice-slide-wrapper,
+
+        /* TM Templates ------------------------- */
+      ul#adminmenu #toplevel_page_mnssp_templates:has([href="admin.php?page=mnssp_templates"]),
+      ul#adminmenu #toplevel_page_mnssp_templates .current:has([href="admin.php?page=mnssp_templates"]),
 
         /* Simple History ----------------------- */
       .sh-PremiumFeaturesPostbox,
@@ -644,11 +650,13 @@ class Admin_Ad_Sanitizer {
       /* ----------------------------- */
       /*#region Notice area upsells and ads, unrelated to updates */
 
-      /* cookie-law-info */
+      /* cookie-law-info  ----------------------- */
       #wbte_accessibility_banner,
-        /* Elementor */
+
+        /* Elementor  --------------------------- */
       #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
-        /* Small Balloons */
+
+        /* Small Balloons  ---------------------- */
       #ctf-notifications,
       #end-selectors-list {
         box-sizing: content-box; /* for enforcing min-height that matches font size */
@@ -677,18 +685,72 @@ class Admin_Ad_Sanitizer {
         }
       }
 
-      /* cookie-law-info */
+      /* cookie-law-info  ----------------------- */
       #wbte_accessibility_banner,
-        /* Elementor */
+
+        /* Elementor  --------------------------- */
       #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
+
+        /* TM Templates ------------------------- */
+      .wp-core-ui .notice.mnssp:has(.mnssp-buy-btn),
+
+        /* -------------------------------------- */
       #end-selectors-list {
+        &.notice {
+          display: block !important;
+          align-items: flex-start;
+          gap: unset;
+          margin: 0.3125rem 0 1rem !important;
+          padding: 0.5rem 0.75rem !important;
+          border: none;
+          border-left: 0.25rem solid #c3c4c7ff !important;
+          box-shadow: none;
+          background: white !important;
+          color: black !important;
+        }
+
+        & .wbte_accessibility_banner_dismiss_btn,
+        & .dashicons-no-alt,
+        & .notice-dismiss {
+          &,
+          &::after,
+          &::before {
+            color: black !important;
+          }
+        }
+
+        .admin-color-modern & {
+          padding: 0.875rem !important;
+          border-block: none !important;
+          border-inline-end: none !important;
+          box-shadow: none !important;
+
+          &.notice-success,
+          &.updated {
+            border-left-color: var(--wp-admin-theme-updated-color, #4ab866);
+            background-color: #eff9f1 !important;
+
+            &::after,
+            &::before {
+              content: "";
+              display: inline-flex;
+              align-items: center;
+              line-height: 1;
+              font-size: 0.8125rem;
+              padding-inline-end: 0.325em;
+            }
+          }
+        }
+
         & :not(.notice-dismiss):not(.screen-reader-text):not(.wbte_accessibility_banner_dismiss_btn):not(.dashicons-no-alt) {
-          display: contents;
+          display: contents !important;
           font-size: 0 !important;
         }
+
         & .e-conversion-banner__content {
           display: none !important;
         }
+
         &::after,
         &::before {
           content: "";
@@ -823,6 +885,7 @@ class Admin_Ad_Sanitizer {
             float: right !important;
           }
         }
+
         .notice-dismiss {
           padding: 0 !important;
         }
