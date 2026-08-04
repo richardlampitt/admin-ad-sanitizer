@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.7.0.0
+ * Version: 1.8.2.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,9 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.8.2.0  - Added: Remove Yoast disabled functionality.
+ * 1.8.1.0  - Added: Remove Yoast admin menu upsells.
+ * 1.8.0.0  - Added: Remove Yoast admin notice hijack.
  * 1.7.0.0  - Added: Remove WP Clone admin notice hijack.
  * 1.6.0.0  - Added: Remove Cookie Yes admin notice hijack.
  * 1.5.0.0  - Added: Remove Accessibility Banner admin notice hijack (from cookie-law-info).
@@ -301,12 +304,16 @@ class Admin_Ad_Sanitizer {
 
         /* Yoast -------------------------------- */
       .yoast #sidebar-container.wpseo_content_cell,
+      .yoast-notification:has(.yoast-button-upsell),
       .yoast_premium_upsell,
+      .yst-\@container + :has([href*="software=free"]),
       [href*="wpseo_brand_insights"]:has(.yst-external-link-icon),
       .yst-modal,
       div:has(> [class*="yst-button--upsell"]),
       a:has([class*="yst-button--upsell"]),
       a[href*="wpseo_upgrade_sidebar"],
+      .yst-root:has([src*="wordpress-seo/images/redirect-manager-thumbnail.png"]),
+      #wpseo-workouts-container-free:has([href="https://yoa.st/workout-orphaned-content-upsell"]),
       #end-selectors-list {
         display: none !important;
       }
@@ -348,6 +355,9 @@ class Admin_Ad_Sanitizer {
 
         /* Yoast ------------------------------- */
       #adminmenu a:has(.yoast-premium-badge),
+      #adminmenu a:has(.yst-button--upsell),
+      #adminmenu a[target="_blank"][href*="page=wpseo_"],
+      #adminmenu a[href*="page=wpseo_"]:has(.yoast-premium-badge),
       #end-selectors-list {
         display: none !important;
       }
