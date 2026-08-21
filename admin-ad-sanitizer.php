@@ -1,11 +1,11 @@
-<?php
+<?php /** @noinspection PhpUndefinedFunctionInspection */
 
 defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.9.2.2
+ * Version: 1.10.0.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,77 +13,78 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
- * 1.9.2.2  - Bugfix: PHP notice caused by duplicate remove_menu_link().
- * 1.9.2.1  - Bugfix: Fix version number.
- * 1.9.2.0  - Added: Remove TM Template persistent hijacks and upsell hooks.
- * 1.9.1.0  - Added: Remove TM Template admin menu offsite-upsell.
- * 1.9.0.0  - Added: Remove TM Template admin notice hijack.
- * 1.8.2.0  - Added: Remove Yoast disabled functionality.
- * 1.8.1.0  - Added: Remove Yoast admin menu upsells.
- * 1.8.0.0  - Added: Remove Yoast admin notice hijack.
- * 1.7.0.0  - Added: Remove WP Clone admin notice hijack.
- * 1.6.0.0  - Added: Remove Cookie Yes admin notice hijack.
- * 1.5.0.0  - Added: Remove Accessibility Banner admin notice hijack (from cookie-law-info).
- * 1.4.0.0  - Added: Remove Elementor admin notice hijack.
- * 1.3.0.0  - Added: Remove Theme Isle dashboard upsell.
- * 1.2.2.1  - Bugfix: Fix version number.
- * 1.2.2.0  - Added: Events Manager full-screen ad modal.
- * 1.2.1.2  - Tweak: Update plugin description.
- * 1.2.1.1  - Added: Remove Smash Balloons bait-and-switch install links in admin menu.
- * 1.2.1.0  - Added: Remove Smash Balloons admin notice upsells.
- * 1.2.0.1  - Tweak: Update element upsell reversion styling for WordPress 7 admin UI.
- * 1.2.0.0  - Feature: Add support for WordPress 7 admin UI.
- * 1.1.7.0  - Added: Forminator admin notice ad.
- * 1.1.6.0  - Added: WP-Bakery admin notice ad on update.
- * 1.1.5.0  - Added: Temporary Login Without Password cross-sell.
- * 1.1.4.1  - Tweak: Tweak a comment.
- * 1.1.4.0  - Bugfix: Adjust background-color enforcement so that menu icons and update notifications remain visible.
- * 1.1.3.4  - Maintenance: Fix an incorrect code label.
- * 1.1.3.3  - Maintenance: Tidy up code region separators.
- * 1.1.3.2  - Maintenance: Tidy up changelog.
- * 1.1.3.1  - Added: Remove Document Library Lite disabled functionality.
- * 1.1.3.0  - Added: Remove Document Library Lite ads.
- * 1.1.2.4  - Bugfix: Fix overeager deregister calls.
- * 1.1.2.3  - Bugfix: Disable over-ambitious cookie date causing fatal error.
- * 1.1.2.2  - Added: Remove ThemeHunk Mega Menu class override.
- * 1.1.2.1  - Added: Remove ThemeHunk Mega Menu admin advertisements.
- * 1.1.2.0  - Added: Remove ThemeHunk Mega Menu advertisement slider.
- * 1.1.1.10 - Added: Remove Astra starter templates cross-sell.
- * 1.1.1.9  - Added: Remove Astra site-builder bait-and-switch.
- * 1.1.1.8  - Added: Remove Astra dashboard disabled features.
- * 1.1.1.7  - Bugfix: Fix incorrect selector.
- * 1.1.1.6  - Added: Remove Astra full screen ad tab.
- * 1.1.1.5  - Added: Remove Astra customizer fake tab.
- * 1.1.1.4  - Bugfix: Tighten specificity on selector.
- * 1.1.1.3  - Added: Remove Astra dashboard support upsell.
- * 1.1.1.2  - Added: Remove Astra dashboard plugin cross-sell/ disabled features.
- * 1.1.1.1  - Added: Remove Astra dashboard disabled features.
- * 1.1.1.0  - Added: Remove Astra Customizer huge upsell.
- * 1.1.0.1  - Bugfix: Fix missing hook.
- * 1.1.0.0  - Feature: Change hook to affect customizer interface.
- * 1.0.12.1 - Added: Remove Astra Customizer disabled features.
- * 1.0.12   - Added: Remove Astra Customizer huge upsell.
- * 1.0.11.5 - Added: Remove Yoast external link in menu.
- * 1.0.11.4 - Bugfix: Incorrectly formatted CSS.
- * 1.0.11.3 - Added: Remove Yoast disabled features.
- * 1.0.11.2 - Bugfix: Overeager Selector affecting too many items.
- * 1.0.11.1 - Added: Remove Yoast upsells.
- * 1.0.11.0 - Added: Remove Yoast upsells.
- * 1.0.10.1 - Bugfix: Fix incorrect selector.
- * 1.0.10.0 - Added: Remove RankMath animations.
- * 1.0.9.0  - Added: Remove disabled RankMath functionality.
- * 1.0.8.0  - Added: De-emphasize RankMath Pro notice.
- * 1.0.7.1  - Bugfix: Reduce specificity of selector to prevent accidental exclusion of legitimate notices.
- * 1.0.7.0  - Added: Remove Royal Elementor Addons update notification upsell hijacks.
- * 1.0.7.0  - Added: Remove Elementor update notification upsell hijacks.
- * 1.0.6.0  - Added: Remove UpdraftPlus massive notification upsell hijack.
- * 1.0.5.1  - Bugfix: Incorrect selector.
- * 1.0.5.0  - Added: Remove Smashballoons Instagram Feed unneeded icon.
- * 1.0.4.0  - Added: Remove Smashballoons Instagram Feed plugin upsell.
- * 1.0.3.0  - Added: Get Shortcodes.
- * 1.0.2.0  - Added: Profile Builder.
- * 1.0.1.0  - Added: Enhanced Text Widget.
- * 1.0.0.0  - Added: AIO Plugins and Elements Kit.
+ * 1.10.0.0  - Added: Remove CF7apps auto-install upsell
+ * 1.9.2.2   - Bugfix: PHP notice caused by duplicate remove_menu_link().
+ * 1.9.2.1   - Bugfix: Fix version number.
+ * 1.9.2.0   - Added: Remove TM Template persistent hijacks and upsell hooks.
+ * 1.9.1.0   - Added: Remove TM Template admin menu offsite-upsell.
+ * 1.9.0.0   - Added: Remove TM Template admin notice hijack.
+ * 1.8.2.0   - Added: Remove Yoast disabled functionality.
+ * 1.8.1.0   - Added: Remove Yoast admin menu upsells.
+ * 1.8.0.0   - Added: Remove Yoast admin notice hijack.
+ * 1.7.0.0   - Added: Remove WP Clone admin notice hijack.
+ * 1.6.0.0   - Added: Remove Cookie Yes admin notice hijack.
+ * 1.5.0.0   - Added: Remove Accessibility Banner admin notice hijack (from cookie-law-info).
+ * 1.4.0.0   - Added: Remove Elementor admin notice hijack.
+ * 1.3.0.0   - Added: Remove Theme Isle dashboard upsell.
+ * 1.2.2.1   - Bugfix: Fix version number.
+ * 1.2.2.0   - Added: Events Manager full-screen ad modal.
+ * 1.2.1.2   - Tweak: Update plugin description.
+ * 1.2.1.1   - Added: Remove Smash Balloons bait-and-switch install links in admin menu.
+ * 1.2.1.0   - Added: Remove Smash Balloons admin notice upsells.
+ * 1.2.0.1   - Tweak: Update element upsell reversion styling for WordPress 7 admin UI.
+ * 1.2.0.0   - Feature: Add support for WordPress 7 admin UI.
+ * 1.1.7.0   - Added: Forminator admin notice ad.
+ * 1.1.6.0   - Added: WP-Bakery admin notice ad on update.
+ * 1.1.5.0   - Added: Temporary Login Without Password cross-sell.
+ * 1.1.4.1   - Tweak: Tweak a comment.
+ * 1.1.4.0   - Bugfix: Adjust background-color enforcement so that menu icons and update notifications remain visible.
+ * 1.1.3.4   - Maintenance: Fix an incorrect code label.
+ * 1.1.3.3   - Maintenance: Tidy up code region separators.
+ * 1.1.3.2   - Maintenance: Tidy up changelog.
+ * 1.1.3.1   - Added: Remove Document Library Lite disabled functionality.
+ * 1.1.3.0   - Added: Remove Document Library Lite ads.
+ * 1.1.2.4   - Bugfix: Fix overeager deregister calls.
+ * 1.1.2.3   - Bugfix: Disable over-ambitious cookie date causing fatal error.
+ * 1.1.2.2   - Added: Remove ThemeHunk Mega Menu class override.
+ * 1.1.2.1   - Added: Remove ThemeHunk Mega Menu admin advertisements.
+ * 1.1.2.0   - Added: Remove ThemeHunk Mega Menu advertisement slider.
+ * 1.1.1.10  - Added: Remove Astra starter templates cross-sell.
+ * 1.1.1.9   - Added: Remove Astra site-builder bait-and-switch.
+ * 1.1.1.8   - Added: Remove Astra dashboard disabled features.
+ * 1.1.1.7   - Bugfix: Fix incorrect selector.
+ * 1.1.1.6   - Added: Remove Astra full screen ad tab.
+ * 1.1.1.5   - Added: Remove Astra customizer fake tab.
+ * 1.1.1.4   - Bugfix: Tighten specificity on selector.
+ * 1.1.1.3   - Added: Remove Astra dashboard support upsell.
+ * 1.1.1.2   - Added: Remove Astra dashboard plugin cross-sell/ disabled features.
+ * 1.1.1.1   - Added: Remove Astra dashboard disabled features.
+ * 1.1.1.0   - Added: Remove Astra Customizer huge upsell.
+ * 1.1.0.1   - Bugfix: Fix missing hook.
+ * 1.1.0.0   - Feature: Change hook to affect customizer interface.
+ * 1.0.12.1  - Added: Remove Astra Customizer disabled features.
+ * 1.0.12    - Added: Remove Astra Customizer huge upsell.
+ * 1.0.11.5  - Added: Remove Yoast external link in menu.
+ * 1.0.11.4  - Bugfix: Incorrectly formatted CSS.
+ * 1.0.11.3  - Added: Remove Yoast disabled features.
+ * 1.0.11.2  - Bugfix: Overeager Selector affecting too many items.
+ * 1.0.11.1  - Added: Remove Yoast upsells.
+ * 1.0.11.0  - Added: Remove Yoast upsells.
+ * 1.0.10.1  - Bugfix: Fix incorrect selector.
+ * 1.0.10.0  - Added: Remove RankMath animations.
+ * 1.0.9.0   - Added: Remove disabled RankMath functionality.
+ * 1.0.8.0   - Added: De-emphasize RankMath Pro notice.
+ * 1.0.7.1   - Bugfix: Reduce specificity of selector to prevent accidental exclusion of legitimate notices.
+ * 1.0.7.0   - Added: Remove Royal Elementor Addons update notification upsell hijacks.
+ * 1.0.7.0   - Added: Remove Elementor update notification upsell hijacks.
+ * 1.0.6.0   - Added: Remove UpdraftPlus massive notification upsell hijack.
+ * 1.0.5.1   - Bugfix: Incorrect selector.
+ * 1.0.5.0   - Added: Remove Smashballoons Instagram Feed unneeded icon.
+ * 1.0.4.0   - Added: Remove Smashballoons Instagram Feed plugin upsell.
+ * 1.0.3.0   - Added: Get Shortcodes.
+ * 1.0.2.0   - Added: Profile Builder.
+ * 1.0.1.0   - Added: Enhanced Text Widget.
+ * 1.0.0.0   - Added: AIO Plugins and Elements Kit.
  */
 
 // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,6 +176,10 @@ class Admin_Ad_Sanitizer {
 
         /* Bootstrap Blocks --------------------- */
       .bootstrap-notice.notice-alt.notice-large.notice-success,
+
+        /* CF7 Apps ----------------------------- */
+      [class*='cf7apps-form-promo-root']:has([src*='promo-header.png']),
+      [class*='cf7apps-form-promo'],
 
         /* CleaverPlugins ----------------------- */
       .cp-ddp-newsletter,
@@ -930,6 +935,17 @@ class Admin_Ad_Sanitizer {
       }
 
       /* endregion */
+      /* ====================================== */
+
+      /* ====================================== */
+      /*#region Misc Fixes / QoL of Life Tweaks */
+
+      .cf7apps-migration-modal {
+        /* Fix for modal positioning */
+        margin-block-start: 6rem;
+      }
+
+      /*#endregion Misc Fixes / QoL of Life Tweaks */
       /* ====================================== */
 
       /* endregion */
