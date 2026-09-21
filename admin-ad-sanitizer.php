@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.10.0.0
+ * Version: 1.11.0.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,7 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
- * 1.10.0.0  - Added: Remove CF7apps auto-install upsell
+ * 1.11.0.0  - Added: WPMet Stories dashboard ad hijack.
+ * 1.10.0.0  - Added: Remove CF7apps auto-install upsell.
  * 1.9.2.2   - Bugfix: PHP notice caused by duplicate remove_menu_link().
  * 1.9.2.1   - Bugfix: Fix version number.
  * 1.9.2.0   - Added: Remove TM Template persistent hijacks and upsell hooks.
@@ -303,6 +304,9 @@ class Admin_Ad_Sanitizer {
       .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_medium=banner"]),
       .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_content=notification-cta"]),
       .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_activity=launch"]),
+
+        /* WPMet Stories------------------------- */
+      #dashboard-widgets-wrap a[href*="https://wpmet.com/plugin/"]:has(img[src*="wpmet.com"]),
 
         /* WP Forms ----------------------------- */
       .ib-banners-wrapper:has([href*="bit.ly"]),
@@ -953,11 +957,22 @@ class Admin_Ad_Sanitizer {
     </style>
   <?php }
 
+  protected static function remove_hooks_wpmet() {
+    foreach ( [ 'admin_notices', 'admin_init', 'wp_dashboard_setup', ] as $hook ) {
+      add_action($hook, function() {
+        foreach ( [ 'wpmet_stories', 'wpmet-stories', ] as $id ) {
+          foreach ( [ 'normal', 'side', 'advanced' ] as $context ) {
+            remove_meta_box($id, 'dashboard', $context);
+          }
+        }
+      }, PHP_INT_MAX);
+    }
+  }
+
   protected static function remove_hooks_mnssp() {
     add_action('admin_menu', function() {
       remove_menu_page('mnssp_templates');
     }, PHP_INT_MAX);
-
     remove_action('admin_notices', 'mnssp_admin_notice');
     remove_action('admin_notices', 'mnssp_admin_notice_with_html');
     foreach ( [ 'admin_notices', 'admin_init' ] as $hook ) {
@@ -973,6 +988,7 @@ class Admin_Ad_Sanitizer {
     add_action('customize_controls_enqueue_scripts', [ $this, 'admin_ad_disable_css' ], PHP_INT_MAX);
 
     self::remove_hooks_mnssp();
+    self::remove_hooks_wpmet();
   }
 }
 
