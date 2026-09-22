@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.11.0.0
+ * Version: 1.11.1.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.11.1.0  - Added: Magnify Suggested Search editor UI ad injection.
  * 1.11.0.0  - Added: WPMet Stories dashboard ad hijack.
  * 1.10.0.0  - Added: Remove CF7apps auto-install upsell.
  * 1.9.2.2   - Bugfix: PHP notice caused by duplicate remove_menu_link().
@@ -150,11 +151,11 @@ class Admin_Ad_Sanitizer {
 
   public function admin_ad_disable_css() { ?>
     <style>
-      /* ////////////////////////////////////////////////////// */
+      /* ////////////////////////////////////////////////////////////////////////////////// */
       /* region Admin Area Upsell Disable */
 
 
-      /* ====================================== */
+      /* ====================================================================== */
       /* region Completely disable the most egregious nags and ads: */
 
       /* ACF ---------------------------------- */
@@ -280,6 +281,8 @@ class Admin_Ad_Sanitizer {
         /* TM Templates ------------------------- */
       ul#adminmenu #toplevel_page_mnssp_templates:has([href="admin.php?page=mnssp_templates"]),
       ul#adminmenu #toplevel_page_mnssp_templates .current:has([href="admin.php?page=mnssp_templates"]),
+      #editor .mnssp-bundle-btn-wrap,
+      #editor .mnssp-bundle-btn,
 
         /* Simple History ----------------------- */
       .sh-PremiumFeaturesPostbox,
@@ -337,10 +340,10 @@ class Admin_Ad_Sanitizer {
       }
 
       /* endregion */
-      /* ====================================== */
+      /* ====================================================================== */
 
 
-      /* ====================================== */
+      /* ====================================================================== */
       /* region Remove disabled functionality: */
 
       /* Astra --------------------------------- */
@@ -386,10 +389,10 @@ class Admin_Ad_Sanitizer {
       }
 
       /* endregion */
-      /* ====================================== */
+      /* ====================================================================== */
 
 
-      /* ====================================== */
+      /* ====================================================================== */
       /* region De-emphasis on less annoying things: */
 
       /* Contact Form Redirect :: wpcf7-redirect */
@@ -575,10 +578,10 @@ class Admin_Ad_Sanitizer {
       }
 
       /* endregion */
-      /* ====================================== */
+      /* ====================================================================== */
 
 
-      /* ====================================== */
+      /* ====================================================================== */
       /* region Fix update notification content: */
 
       /* ----------------------------- */
@@ -920,10 +923,10 @@ class Admin_Ad_Sanitizer {
       /* ----------------------------- */
 
       /* endregion */
-      /* ====================================== */
+      /* ====================================================================== */
 
 
-      /* ====================================== */
+      /* ====================================================================== */
       /* region Discorage clicking on trackers: */
 
       #astra-dashboard-app a[href*="utm_source=free-theme"],
@@ -939,9 +942,9 @@ class Admin_Ad_Sanitizer {
       }
 
       /* endregion */
-      /* ====================================== */
+      /* ====================================================================== */
 
-      /* ====================================== */
+      /* ====================================================================== */
       /*#region Misc Fixes / QoL of Life Tweaks */
 
       .cf7apps-migration-modal {
@@ -950,10 +953,10 @@ class Admin_Ad_Sanitizer {
       }
 
       /*#endregion Misc Fixes / QoL of Life Tweaks */
-      /* ====================================== */
+      /* ====================================================================== */
 
       /* endregion */
-      /* ////////////////////////////////////////////////////// */
+      /* ////////////////////////////////////////////////////////////////////////////////// */
     </style>
   <?php }
 
@@ -969,6 +972,7 @@ class Admin_Ad_Sanitizer {
     }
   }
 
+  // Magnify Suggestive Search
   protected static function remove_hooks_mnssp() {
     add_action('admin_menu', function() {
       remove_menu_page('mnssp_templates');
@@ -981,6 +985,10 @@ class Admin_Ad_Sanitizer {
         remove_action('admin_notices', 'mnssp_admin_notice_with_html');
       }, PHP_INT_MAX);
     }
+
+    // only used to inject ads into the editor UI:
+    wp_dequeue_script('mnssp-editor-js');
+    wp_enqueue_style('mnssp-editor-styles');
   }
 
   public function __construct() {
