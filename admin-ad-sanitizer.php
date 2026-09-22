@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.11.1.0
+ * Version: 1.11.2.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.11.2.0  - Added: Removal of Magnify Suggested Search editor UI ad injection also on admin hooks.
  * 1.11.1.0  - Added: Magnify Suggested Search editor UI ad injection.
  * 1.11.0.0  - Added: WPMet Stories dashboard ad hijack.
  * 1.10.0.0  - Added: Remove CF7apps auto-install upsell.
@@ -977,9 +978,11 @@ class Admin_Ad_Sanitizer {
     add_action('admin_menu', function() {
       remove_menu_page('mnssp_templates');
     }, PHP_INT_MAX);
+
+    $admin_hooks = [ 'admin_notices', 'admin_init' ];
     remove_action('admin_notices', 'mnssp_admin_notice');
     remove_action('admin_notices', 'mnssp_admin_notice_with_html');
-    foreach ( [ 'admin_notices', 'admin_init' ] as $hook ) {
+    foreach ( $admin_hooks as $hook ) {
       add_action($hook, function() {
         remove_action('admin_notices', 'mnssp_admin_notice');
         remove_action('admin_notices', 'mnssp_admin_notice_with_html');
@@ -987,8 +990,18 @@ class Admin_Ad_Sanitizer {
     }
 
     // only used to inject ads into the editor UI:
-    wp_dequeue_script('mnssp-editor-js');
-    wp_enqueue_style('mnssp-editor-styles');
+    foreach ( [
+      [ 'mnssp-editor-js', 'mnssp-editor-styles' ],
+    ] as $script_style_pair ) {
+      wp_dequeue_script($script_style_pair[0]);
+      wp_enqueue_style($script_style_pair[1]);
+      foreach ( $admin_hooks as $hook ) {
+        add_action($hook, function() use ($script_style_pair) {
+          wp_dequeue_script($script_style_pair[0]);
+          wp_enqueue_style($script_style_pair[1]);
+        }, PHP_INT_MAX);
+      }
+    }
   }
 
   public function __construct() {
