@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.11.2.1  - Bugfix: Fix incorrect hook.
  * 1.11.2.0  - Added: Removal of Magnify Suggested Search editor UI ad injection also on admin hooks.
  * 1.11.1.0  - Added: Magnify Suggested Search editor UI ad injection.
  * 1.11.0.0  - Added: WPMet Stories dashboard ad hijack.
@@ -988,6 +989,10 @@ class Admin_Ad_Sanitizer {
         remove_action('admin_notices', 'mnssp_admin_notice_with_html');
       }, PHP_INT_MAX);
     }
+  }
+
+  protected static function remove_scripts_mnssp() {
+    $script_hooks = [ 'wp_enqueue_scripts', 'admin_enqueue_scripts', 'login_enqueue_scripts' ];
 
     // only used to inject ads into the editor UI:
     foreach ( [
@@ -995,7 +1000,7 @@ class Admin_Ad_Sanitizer {
     ] as $script_style_pair ) {
       wp_dequeue_script($script_style_pair[0]);
       wp_enqueue_style($script_style_pair[1]);
-      foreach ( $admin_hooks as $hook ) {
+      foreach ( $script_hooks as $hook ) {
         add_action($hook, function() use ($script_style_pair) {
           wp_dequeue_script($script_style_pair[0]);
           wp_enqueue_style($script_style_pair[1]);
