@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.11.2.1
+ * Version: 1.12.0.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.12.0.0  - Added: Essential Addons for Elementor admin-menu notification bubble.
  * 1.11.2.1  - Bugfix: Fix incorrect hook.
  * 1.11.2.0  - Added: Removal of Magnify Suggested Search editor UI ad injection also on admin hooks.
  * 1.11.1.0  - Added: Magnify Suggested Search editor UI ad injection.
@@ -209,6 +210,9 @@ class Admin_Ad_Sanitizer {
         /* Event Manager ------------------------ */
       #em-promo-popup,
       .pixelbones.em-admin-modal.active,
+
+        /* Essential Addons for Elementor ------- */
+      .eael-menu-notice,
 
         /* Get Shortcodes ----------------------- */
       .su-admin-c-notice-pro:has([href*="getshortcodes.com/pricing"]),
@@ -654,7 +658,7 @@ class Admin_Ad_Sanitizer {
       /* forminator */
       [data-notice-slug="forminator_promote_free_plan"]::after { content: "Forminator" !important; }
 
-      /* Royal Elementor Plugins */
+      /* WP Bakery */
       .updated.wpb-notice::after { content: "WP Bakery" !important; }
 
       /* Royal Elementor Plugins */
