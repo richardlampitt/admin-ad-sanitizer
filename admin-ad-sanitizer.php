@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.14.0.0
+ * Version: 1.14.1.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.14.1.0  - Tweak: Fix dismissability of generic review nag notice.
  * 1.14.0.0  - Added: A common generic review nag admin notice hijack (used by many plugins).
  * 1.13.0.0  - Added: Skyboot Custom Icons for Elementor admin notice hijack.
  * 1.12.0.0  - Added: Essential Addons for Elementor admin-menu notification bubble.
@@ -741,6 +742,7 @@ class Admin_Ad_Sanitizer {
         }
 
         & .wbte_accessibility_banner_dismiss_btn,
+        & [href*="already_rated"],
         & .dashicons-no-alt,
         & .notice-dismiss {
           &,
@@ -773,9 +775,32 @@ class Admin_Ad_Sanitizer {
           }
         }
 
-        & :not(.notice-dismiss):not(.screen-reader-text):not(.wbte_accessibility_banner_dismiss_btn):not(.dashicons-no-alt) {
+        & :not(.notice-dismiss):not(.screen-reader-text):not(.wbte_accessibility_banner_dismiss_btn):not(.dashicons-no-alt):not([href*="already_rated"]) {
           display: contents !important;
           font-size: 0 !important;
+        }
+
+        /* generic view nag close surrogate */
+        & .notice:has([href*="already_rated"]) {
+          display: flex !important;
+          align-items: center;
+          justify-content: start;
+        }
+        & [href*="already_rated"]::after {
+          content: "×";
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          order: 10;
+          width: 1rem;
+          height: 1rem;
+          margin-inline-start: auto;
+          padding: 0.125rem;
+          border: 1px solid;
+          border-radius: 0.25rem;
+          line-height: 1;
+          font-size: 1rem;
+          font-weight: 400;
         }
 
         & .e-conversion-banner__content {
