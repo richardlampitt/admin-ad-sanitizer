@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.13.0.0
+ * Version: 1.14.0.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.14.0.0  - Added: A common generic review nag admin notice hijack (used by many plugins).
  * 1.13.0.0  - Added: Skyboot Custom Icons for Elementor admin notice hijack.
  * 1.12.0.0  - Added: Essential Addons for Elementor admin-menu notification bubble.
  * 1.11.2.1  - Bugfix: Fix incorrect hook.
@@ -710,7 +711,10 @@ class Admin_Ad_Sanitizer {
       /* cookie-law-info  ----------------------- */
       #wbte_accessibility_banner,
 
-      /* ----------------------------- */
+        /* ----------------------------- */
+
+        /* Generic Review Nag ------------------- */
+      .notice:has([href^="https://wordpress.org/support/plugin"][href$="reviews/#new-post"]),
 
         /* Elementor  --------------------------- */
       #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
