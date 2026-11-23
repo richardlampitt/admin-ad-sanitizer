@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.14.2.0
+ * Version: 1.14.4.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.14.4.0  - Tweak: Adjust size of code-folding region markers.
+ * 1.14.3.0  - Added: Remove Themeisle black-friday admin notice hijack.
  * 1.14.2.0  - Tweak: Match close button font of generic review nag notices with standard admin UI.
  * 1.14.1.0  - Tweak: Fix dismissability of generic review nag notice.
  * 1.14.0.0  - Added: A common generic review nag admin notice hijack (used by many plugins).
@@ -158,11 +160,11 @@ class Admin_Ad_Sanitizer {
 
   public function admin_ad_disable_css() { ?>
     <style>
-      /* ////////////////////////////////////////////////////////////////////////////////// */
+      /* ////////////////////////////////////////////////////////////////////////////////////////////// */
       /* region Admin Area Upsell Disable */
 
 
-      /* ====================================================================== */
+      /* ================================================================================== */
       /* region Completely disable the most egregious nags and ads: */
 
       /* ACF ---------------------------------- */
@@ -350,10 +352,10 @@ class Admin_Ad_Sanitizer {
       }
 
       /* endregion */
-      /* ====================================================================== */
+      /* ================================================================================== */
 
 
-      /* ====================================================================== */
+      /* ================================================================================== */
       /* region Remove disabled functionality: */
 
       /* Astra --------------------------------- */
@@ -399,10 +401,10 @@ class Admin_Ad_Sanitizer {
       }
 
       /* endregion */
-      /* ====================================================================== */
+      /* ================================================================================== */
 
 
-      /* ====================================================================== */
+      /* ================================================================================== */
       /* region De-emphasis on less annoying things: */
 
       /* Contact Form Redirect :: wpcf7-redirect */
@@ -588,10 +590,10 @@ class Admin_Ad_Sanitizer {
       }
 
       /* endregion */
-      /* ====================================================================== */
+      /* ================================================================================== */
 
 
-      /* ====================================================================== */
+      /* ================================================================================== */
       /* region Fix update notification content: */
 
       /* ----------------------------- */
@@ -681,6 +683,9 @@ class Admin_Ad_Sanitizer {
         /* Elementor  --------------------------- */
       #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
 
+        /* Theme Isle --------------------------- */
+      .notice:has([href*="utm_content=blackfriday"]), /* cf7 redirect */
+
         /* Small Balloons  ---------------------- */
       #ctf-notifications,
       #end-selectors-list {
@@ -710,10 +715,10 @@ class Admin_Ad_Sanitizer {
         }
       }
 
+      /* ----------------------------- */
+
       /* cookie-law-info  ----------------------- */
       #wbte_accessibility_banner,
-
-        /* ----------------------------- */
 
         /* Generic Review Nag ------------------- */
       .notice:has([href^="https://wordpress.org/support/plugin"][href$="reviews/#new-post"]),
@@ -724,13 +729,16 @@ class Admin_Ad_Sanitizer {
         /* Skyboot Custom Icons for Elementor --- */
       .notice:has([href*="skyboot_icons_go_pro"]),
 
+        /* Theme Isle --------------------------- */
+      .notice:has([href*="utm_content=blackfriday"]),
+
         /* TM Templates ------------------------- */
       .wp-core-ui .notice.mnssp:has(.mnssp-buy-btn),
 
         /* -------------------------------------- */
       #end-selectors-list {
         &.notice {
-          display: block !important;
+          display: flex !important;
           align-items: flex-start;
           gap: unset;
           margin: 0.3125rem 0 1rem !important;
@@ -744,6 +752,7 @@ class Admin_Ad_Sanitizer {
 
         & .wbte_accessibility_banner_dismiss_btn,
         & [href*="already_rated"],
+        & [href*="dismiss_black_friday_notice"],
         & .dashicons-no-alt,
         & .notice-dismiss {
           &,
@@ -787,23 +796,32 @@ class Admin_Ad_Sanitizer {
           align-items: center;
           justify-content: start;
         }
-        & [href*="already_rated"]::after {
-          /*content: "×";*/
-          content: "\f335";
-          font: normal 1.25rem/1 dashicons;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          order: 10;
-          width: 1rem;
-          height: 1rem;
-          margin-inline-start: auto;
-          padding: 0.125rem;
-          border: 1px solid;
-          border-radius: 0.25rem;
-          color: #1e1e1e;
-          font-size: 1rem;
-          font-weight: 400;
+
+        & .themeisle-sale-dismiss,
+        & [href*="already_rated"] {
+          &::after {
+            /*content: "×";*/
+            content: "\f335";
+            font: normal 1.25rem/1 dashicons;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            order: 10;
+            width: 1rem;
+            height: 1rem;
+            margin-inline-start: auto;
+            padding: 0.125rem;
+            border: 1px solid;
+            border-radius: 0.25rem;
+            color: #1e1e1e;
+            font-size: 1rem;
+            font-weight: 400;
+          }
+          &:hover::after,
+          &:focus::after {
+            color: var(--wp-admin-theme-color, #1d6096) !important;
+            border-color: var(--wp-admin-theme-color, #1d6096);
+          }
         }
 
         & .e-conversion-banner__content {
@@ -967,10 +985,10 @@ class Admin_Ad_Sanitizer {
       /* ----------------------------- */
 
       /* endregion */
-      /* ====================================================================== */
+      /* ================================================================================== */
 
 
-      /* ====================================================================== */
+      /* ================================================================================== */
       /* region Discorage clicking on trackers: */
 
       #astra-dashboard-app a[href*="utm_source=free-theme"],
@@ -986,9 +1004,9 @@ class Admin_Ad_Sanitizer {
       }
 
       /* endregion */
-      /* ====================================================================== */
+      /* ================================================================================== */
 
-      /* ====================================================================== */
+      /* ================================================================================== */
       /*#region Misc Fixes / QoL of Life Tweaks */
 
       .cf7apps-migration-modal {
@@ -997,10 +1015,10 @@ class Admin_Ad_Sanitizer {
       }
 
       /*#endregion Misc Fixes / QoL of Life Tweaks */
-      /* ====================================================================== */
+      /* ================================================================================== */
 
       /* endregion */
-      /* ////////////////////////////////////////////////////////////////////////////////// */
+      /* ////////////////////////////////////////////////////////////////////////////////////////////// */
     </style>
   <?php }
 
