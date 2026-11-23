@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.14.4.0
+ * Version: 1.14.5.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,9 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.14.5.0  - Added: Remove huge Temporary Login Without Password banner.
+ * 1.14.4.2  - Tweak: Adjust size of code-folding region markers.
+ * 1.14.4.1  - Tweak: Spacing fix.
  * 1.14.4.0  - Tweak: Adjust size of code-folding region markers.
  * 1.14.3.0  - Added: Remove Themeisle black-friday admin notice hijack.
  * 1.14.2.0  - Tweak: Match close button font of generic review nag notices with standard admin UI.
@@ -167,14 +170,14 @@ class Admin_Ad_Sanitizer {
       /* ================================================================================== */
       /* region Completely disable the most egregious nags and ads: */
 
-      /* ACF ---------------------------------- */
+      /* ACF ---------------------------------------------------------------------------- */
       #post-body #acf-field-group-pro-features,
 
-        /* AIO Plugins -------------------------- */
+        /* AIO Plugins -------------------------------------------------------------------- */
       .notice:has([href*="https://wpmet.com/deals"]),
       .notice:has([href*="https://wpmet.com/elementskit-pricing"]),
 
-        /* Astra -------------------------------- */
+        /* Astra -------------------------------------------------------------------------- */
       #customize-control-astra-settings-header-builder-pro-items,
       #astra-dashboard-app section:has([d="M83.1363 60.863C81.3465 61.953 19.6523 63.0372 16.4254 60.863C13.778 59.0818 15.0372 28.0612 15.5994 15.759C15.6194 15.3288 15.6366 14.9272 15.6567 14.5429C15.7485 12.581 17.2917 10.576 19.2478 10.5129C24.0522 10.358 79.9124 9.78723 82.4221 11.0894C82.8753 11.3246 83.2453 13.0628 83.5379 15.759H83.5408C84.8745 27.9952 84.6078 59.971 83.1392 60.863H83.1363Z"]),
       #astra-dashboard-app section:has([data-action="astra_recommended_plugin_install"]),
@@ -185,52 +188,52 @@ class Admin_Ad_Sanitizer {
       #astra-dashboard-app a[href*="page=astra&path=starter-templates"],
       #customize-theme-controls li:has([href*="https://wpastra.com/pricing/"]),
 
-        /* Bootstrap Blocks --------------------- */
+        /* Bootstrap Blocks --------------------------------------------------------------- */
       .bootstrap-notice.notice-alt.notice-large.notice-success,
 
-        /* CF7 Apps ----------------------------- */
+        /* CF7 Apps ----------------------------------------------------------------------- */
       [class*='cf7apps-form-promo-root']:has([src*='promo-header.png']),
       [class*='cf7apps-form-promo'],
 
-        /* CleaverPlugins ----------------------- */
+        /* CleaverPlugins ----------------------------------------------------------------- */
       .cp-ddp-newsletter,
       [data-dismissible*="ddp-newsletter"],
 
-        /* Duplicate pages ---------------------- */
+        /* Duplicate pages ---------------------------------------------------------------- */
       .barn2-plugins-promo-wrapper,
 
-        /* Duplicate pages ---------------------- */
+        /* Duplicate pages ---------------------------------------------------------------- */
       .duplicate_page_settings .r_dpmrs,
       .duplicate_page_settings .l_dpmrs,
       .duplicate_page_settings h1 > a,
       #new-bb-banner,
 
-        /* Elementor ---------------------------- */
+        /* Elementor ---------------------------------------------------------------------- */
       #ehe-admin-cb :not(div):not(.notice-dismiss),
 
-        /* Enhanced Text Widget ----------------- */
+        /* Enhanced Text Widget ----------------------------------------------------------- */
       #tifm_new_feature_notice,
       .notice:has(span[class*="tifm-grow"]),
       .notice:has(a[href*="plugins.php?s=Enhanced%20Text%20Widget"]),
 
-        /* Event Manager ------------------------ */
+        /* Event Manager ------------------------------------------------------------------ */
       #em-promo-popup,
       .pixelbones.em-admin-modal.active,
 
-        /* Essential Addons for Elementor ------- */
+        /* Essential Addons for Elementor ------------------------------------------------- */
       .eael-menu-notice,
 
-        /* Get Shortcodes ----------------------- */
+        /* Get Shortcodes ----------------------------------------------------------------- */
       .su-admin-c-notice-pro:has([href*="getshortcodes.com/pricing"]),
         /*.su-admin-about-wrap:has([href*="getshortcodes.com/pricing"]),*/
 
-        /* Instagram Feed ----------------------- */
+        /* Instagram Feed ----------------------------------------------------------------- */
       .sbi-new-indicator,
       #sbi-notifications .messages:has([href*="how-to-get-free-whatsapp-chat-plugin-wordpress"]),
       #sbi-notifications .messages:has([href*="?utm_source="]),
       #sbi-notifications .messages:has([href*="?utm_campaign="]),
 
-        /* Monster Insights --------------------- */
+        /* Monster Insights --------------------------------------------------------------- */
       #monterinsights-admin-menu-tooltip,
       .monsterinsights-metabox-pro-badge,
       .monsterinsights-wooedd-upsell-left,
@@ -240,26 +243,26 @@ class Admin_Ad_Sanitizer {
       .monsterinsights-wooedd-upsell-row,
       .monsterinsights-wooedd-upsell-left,
 
-        /* Podcast Player ----------------------- */
+        /* Podcast Player ----------------------------------------------------------------- */
       .pp-welcome-notice .pp-link:has([href*="review"]),
 
-        /* Press Permit ------------------------- */
+        /* Press Permit ------------------------------------------------------------------- */
       .pp-version-notice-bold-purple,
 
-        /* Profile Builder ---------------------- */
+        /* Profile Builder ---------------------------------------------------------------- */
       .pms-cross-promo,
 
-        /* Profile Extra Fields / Best Web Soft - */
+        /* Profile Extra Fields / Best Web Soft ------------------------------------------- */
       .bws_banner_on_plugin_page,
       .bws_go_pro_banner,
 
-        /* RankMath ----------------------------- */
+        /* RankMath ----------------------------------------------------------------------- */
       .rank-math-content-ai-box,
       #rank_math_metabox_content_ai,
       #rank_math_pro_notice,
       .eael-black-friday-notice,
 
-        /* Really Simple SSL -------------------- */
+        /* Really Simple SSL -------------------------------------------------------------- */
       .rsssl-premium,
       [class*=".rsssl-premium"],
       .rsssl-support.rsssl-disabled,
@@ -267,75 +270,77 @@ class Admin_Ad_Sanitizer {
       .rsssl-premium ~ a,
       [class*="rsssl"] a[href$="/pro"],
 
-        /* RevSlider ---------------------------- */
+        /* RevSlider ---------------------------------------------------------------------- */
       #rso_menu_notices,
       #rs_notice_the_bell,
       [id^="rs_advert"],
       .rs_wp_plg_act_wrapper,
 
-        /* Royal Elementor Addons --------------- */
+        /* Royal Elementor Addons --------------------------------------------------------- */
       .wpr-plugin-update-notice div,
       .wpr-plugin-update-notice canvas,
       #wpr-notice-confetti,
 
-        /* Temporary Login Without Password ----- */
+        /* Temporary Login Without Password ----------------------------------------------- */
+      #ig_sale_offer,
+      a[href*="ig_offer_bfcm_"],
       #tlwp_es_mailer_promotion_notice,
       .notice:has([href*="/plugin-install.php?s=icegram%2520mailer"]),
 
-        /* Theme Hunk --------------------------- */
+        /* Theme Hunk --------------------------------------------------------------------- */
       .ti-dw-recommend-item, /* cf7 redirect */
 
-        /* Theme Hunk --------------------------- */
+        /* Theme Hunk --------------------------------------------------------------------- */
       .notice:has(a[href*="utm_campaign=th_plugins"]),
       .notice:has(a[href*="https://wpzita.com/royal-shop/"]),
       .th-notice-slide-wrapper,
 
-        /* TM Templates ------------------------- */
+        /* TM Templates ------------------------------------------------------------------- */
       ul#adminmenu #toplevel_page_mnssp_templates:has([href="admin.php?page=mnssp_templates"]),
       ul#adminmenu #toplevel_page_mnssp_templates .current:has([href="admin.php?page=mnssp_templates"]),
       #editor .mnssp-bundle-btn-wrap,
       #editor .mnssp-bundle-btn,
 
-        /* Simple History ----------------------- */
+        /* Simple History ----------------------------------------------------------------- */
       .sh-PremiumFeaturesPostbox,
 
-        /* Smash Balloons ----------------------- */
+        /* Smash Balloons ----------------------------------------------------------------- */
       .ctf-settings-cta,
       .ctf-cta-toggle-features,
       a:has(span[class^="ctf_get"]), /* bait-and-switch / cross-sell installer in admin menu */
 
-        /* Updraft ------------------------------ */
+        /* Updraft ------------------------------------------------------------------------ */
       #updraft-dashnotice,
       .updraft-ad-container,
       .updraft_premium,
       .updraft_feat_table__title,
       .updraft_feat_table,
 
-        /* WordFence ---------------------------- */
+        /* WordFence ---------------------------------------------------------------------- */
       .wf-waf-coverage > li:nth-of-type(3), /* Premium notice */
 
-        /* WP Bakery ---------------------------- */
+        /* WP Bakery ---------------------------------------------------------------------- */
       #vc_license-activation-notice,
       .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_medium=banner"]),
       .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_content=notification-cta"]),
       .updated.wpb-notice:has(.wpb-notice-image):has([href*="utm_activity=launch"]),
 
-        /* WPMet Stories------------------------- */
+        /* WPMet Stories------------------------------------------------------------------- */
       #dashboard-widgets-wrap a[href*="https://wpmet.com/plugin/"]:has(img[src*="wpmet.com"]),
 
-        /* WP Forms ----------------------------- */
+        /* WP Forms ----------------------------------------------------------------------- */
       .ib-banners-wrapper:has([href*="bit.ly"]),
 
-        /* WP Forms ----------------------------- */
+        /* WP Forms ----------------------------------------------------------------------- */
       .wpforms-dash-widget-block-upgrade,
 
-        /* WP-optimize -------------------------- */
+        /* WP-optimize -------------------------------------------------------------------- */
       #wp-optimize-dashnotice,
 
-        /* WDS Promos --------------------------- */
+        /* WDS Promos --------------------------------------------------------------------- */
       .wdspromos,
 
-        /* Yoast -------------------------------- */
+        /* Yoast -------------------------------------------------------------------------- */
       .yoast #sidebar-container.wpseo_content_cell,
       .yoast-notification:has(.yoast-button-upsell),
       .yoast_premium_upsell,
@@ -358,7 +363,7 @@ class Admin_Ad_Sanitizer {
       /* ================================================================================== */
       /* region Remove disabled functionality: */
 
-      /* Astra --------------------------------- */
+      /* Astra -------------------------------------------------------------------------- */
       .builder-add-btn.pro-feature:has(.pro-icon),
       #astra-dashboard-app a:has(.lucide-lock),
       #astra-dashboard-app section:has([href^="https://wpastra.com/pricing/"]),
@@ -366,7 +371,7 @@ class Admin_Ad_Sanitizer {
       #astra-dashboard-app :has(a[href*="page=astra&path=free-vs-pro"]) a[href*="&settings=white-label"],
       #toplevel_page_astra li:has(a[href*="page=theme-builder-free"]),
 
-        /* Document Library Lite ---------------------- */
+        /* Document Library Lite -------------------------------------------------------- */
       .barn2-promo-inner p:has(.dlw-pro-only),
       .barn2-promo-inner p:has(+ p .dlw-pro-only),
       .barn2-promo-inner h2:has(+ p + p .dlw-pro-only),
@@ -377,16 +382,19 @@ class Admin_Ad_Sanitizer {
       .barn2-layout__header + div .promo,
       .document-expiry-container:has(~ #dlw-document-expiry-popover [href*="document-library-pro"]),
 
-        /* Monster Insights ---------------------- */
+        /* Monster Insights ------------------------------------------------------------- */
       .monsterinsights-metabox input[disabled],
       .monsterinsights-metabox input[disabled] + label,
       .monsterinsights-metabox input[disabled] + span,
       .monsterinsights-metabox .monsterinsights-metabox-pro-badge,
 
-        /* Rank Math --------------------------- */
+        /* Temporary Login Without Password --------------------------------------------- */
+      .form-field:has(a[href*="tab=tlwp-pricing"]),
+
+        /* Rank Math -------------------------------------------------------------------- */
       .rank-math-box[aria-hidden="true"],
 
-        /* Yoast ------------------------------- */
+        /* Yoast ------------------------------------------------------------------------ */
       #adminmenu a:has(.yoast-premium-badge),
       #adminmenu a:has(.yst-button--upsell),
       #adminmenu a[target="_blank"][href*="page=wpseo_"],
@@ -407,13 +415,13 @@ class Admin_Ad_Sanitizer {
       /* ================================================================================== */
       /* region De-emphasis on less annoying things: */
 
-      /* Contact Form Redirect :: wpcf7-redirect */
+      /* Contact Form Redirect :: wpcf7-redirect --------------------------------------- */
       .fs-submenu-item.pricing.upgrade-mode,
 
-        /* Instagram Feed */
+        /* Instagram Feed -------------------------------------------------------------- */
       .sbi-cta-discount-label,
 
-        /* Moster Insights */
+        /* Moster Insights ------------------------------------------------------------- */
       #adminmenu .monsterinsights-highlight,
       .monsterinsights-submenu-highlight,
 
@@ -446,7 +454,7 @@ class Admin_Ad_Sanitizer {
         }
       }
 
-      /* Smash Balloons */
+      /* Smash Balloons ---------------------------------------------------------------- */
       [class^="ctf-"][class*="-cta"],
       [class^="ctf-"][class*="-cta"] {
         &,
@@ -496,10 +504,12 @@ class Admin_Ad_Sanitizer {
         }
       }
 
+      /* endregion */
+      /* ================================================================================== */
 
-      /* ------------------------------ */
-      /* Revert any admin-menu changes */
-      /* ------------------------------ */
+
+      /* ================================================================================== */
+      /* region Revert any admin-menu changes: */
 
       #adminmenu .opensub .wp-submenu li.current a,
       #adminmenu .wp-submenu li.current,
@@ -545,9 +555,12 @@ class Admin_Ad_Sanitizer {
         }
       }
 
-      /* ------------------------------ */
-      /* Revert any less-annoying notice changes: */
-      /* ------------------------------ */
+      /* endregion */
+      /* ================================================================================== */
+
+
+      /* ================================================================================== */
+      /* region Revert any less-annoying notice changes: */
 
       #rank-math-unlock-pro-notice,
       #end-selectors-list {
@@ -575,9 +588,12 @@ class Admin_Ad_Sanitizer {
         }
       }
 
-      /* ------------------------------ */
-      /* Remove animations */
-      /* ------------------------------ */
+      /* endregion */
+      /* ================================================================================== */
+
+
+      /* ================================================================================== */
+      /* region Remove animations */
 
       #rank-math-dashboard-page *,
       #rank-math-dashboard-page .rank-math-button.components-button.button-animate,
@@ -594,9 +610,9 @@ class Admin_Ad_Sanitizer {
 
 
       /* ================================================================================== */
-      /* region Fix update notification content: */
+      /* region Fix notification and update notice content: */
 
-      /* ----------------------------- */
+      /* ------------------------------------------------------------------------------- */
       /*#region Enforce consistent appearance */
 
       /* EHE */
@@ -654,9 +670,9 @@ class Admin_Ad_Sanitizer {
       }
 
       /*#endregion Enforce consistent appearance */
-      /* ----------------------------- */
+      /* ------------------------------------------------------------------------------- */
 
-      /* ----------------------------- */
+      /* ------------------------------------------------------------------------------- */
       /*#region Replacement labels */
 
       /*@formatter:off*/
@@ -672,9 +688,9 @@ class Admin_Ad_Sanitizer {
 
       /*@formatter:on*/
       /*#endregion Replacement labels */
-      /* ----------------------------- */
+      /* ------------------------------------------------------------------------------- */
 
-      /* ----------------------------- */
+      /* ------------------------------------------------------------------------------- */
       /*#region Notice area upsells and ads, unrelated to updates */
 
       /* cookie-law-info  ----------------------- */
@@ -982,7 +998,7 @@ class Admin_Ad_Sanitizer {
       }
 
       /*#endregion */
-      /* ----------------------------- */
+      /* ------------------------------------------------------------------------------- */
 
       /* endregion */
       /* ================================================================================== */
@@ -1005,6 +1021,7 @@ class Admin_Ad_Sanitizer {
 
       /* endregion */
       /* ================================================================================== */
+
 
       /* ================================================================================== */
       /*#region Misc Fixes / QoL of Life Tweaks */
