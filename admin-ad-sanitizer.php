@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.14.5.0
+ * Version: 1.14.6.0
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.14.6.0  - Added: Remove huge Post Types Order upsell banner.
  * 1.14.5.0  - Added: Remove huge Temporary Login Without Password banner.
  * 1.14.4.2  - Tweak: Adjust size of code-folding region markers.
  * 1.14.4.1  - Tweak: Spacing fix.
@@ -245,6 +246,9 @@ class Admin_Ad_Sanitizer {
 
         /* Podcast Player ----------------------------------------------------------------- */
       .pp-welcome-notice .pp-link:has([href*="review"]),
+
+        /* Podcast Player ----------------------------------------------------------------- */
+      #cpt_info_box:has([href*="premium-plugins"]),
 
         /* Press Permit ------------------------------------------------------------------- */
       .pp-version-notice-bold-purple,
