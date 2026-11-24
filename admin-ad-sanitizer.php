@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.14.6.0
+ * Version: 1.14.7.1
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.14.7.1  - Added: Remove Event Manager update notification upsell hijacks.
+ * 1.14.7.0  - Added: Remove Event Manager admin notice hijack.
  * 1.14.6.0  - Added: Remove huge Post Types Order upsell banner.
  * 1.14.5.0  - Added: Remove huge Temporary Login Without Password banner.
  * 1.14.4.2  - Tweak: Adjust size of code-folding region markers.
@@ -621,10 +623,17 @@ class Admin_Ad_Sanitizer {
 
       /* EHE */
       #ehe-admin-cb,
+
+        /* Event Manager */
+      .notice[id*="notice-update"],
+      .em-admin-notice[id*="notice-update"],
+
         /* forminator */
       [data-notice-slug="forminator_promote_free_plan"],
+
         /* WP Bakery */
       .updated.wpb-notice,
+
         /* Royal Elementor Plugins */
       .wpr-plugin-update-notice,
       .end-selectors-list {
@@ -690,6 +699,10 @@ class Admin_Ad_Sanitizer {
       /* Royal Elementor Plugins */
       .wpr-plugin-update-notice::after { content: "Royal Elementor Plugins" !important; }
 
+      /* Event Manager */
+      .notice[id*="notice-update"]::after,
+      .em-admin-notice[id*="notice-update"]::after { content: "Event Manager" !important }
+
       /*@formatter:on*/
       /*#endregion Replacement labels */
       /* ------------------------------------------------------------------------------- */
@@ -745,6 +758,9 @@ class Admin_Ad_Sanitizer {
 
         /* Elementor  --------------------------- */
       #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
+
+        /* Event Manager ------------------------ */
+      .notice:not([id*="notice-update"]):has([href*="https://pxlink.cc/"]),
 
         /* Skyboot Custom Icons for Elementor --- */
       .notice:has([href*="skyboot_icons_go_pro"]),
