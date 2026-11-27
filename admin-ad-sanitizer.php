@@ -5,7 +5,7 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 /*
  * Plugin Name: Admin Advertisement Sanitizer
  * Description: Hides in the administration area: obnoxious advertisements & upsells, notices hijacked for advertisements, disingenuous bait-and-switches, review nags, and other egregious distractions.
- * Version: 1.14.7.1
+ * Version: 1.14.8.1
  * License: GPL3+
  * Requires PHP: 7.4
  * Requires at least: 5.0
@@ -13,6 +13,8 @@ defined('ABSPATH') || exit; // exit if accessed directly.
 
 /*
  * Changelog:
+ * 1.14.8.1  - Tweak: Apply order to some selectors.
+ * 1.14.8.0  - Added: Remove WooCommerce Advanced Accounts review nag.
  * 1.14.7.1  - Added: Remove Event Manager update notification upsell hijacks.
  * 1.14.7.0  - Added: Remove Event Manager admin notice hijack.
  * 1.14.6.0  - Added: Remove huge Post Types Order upsell banner.
@@ -621,23 +623,27 @@ class Admin_Ad_Sanitizer {
       /* ------------------------------------------------------------------------------- */
       /*#region Enforce consistent appearance */
 
-      /* EHE */
+      /* EHE -------------------------------------- */
       #ehe-admin-cb,
 
-        /* Event Manager */
+        /* Event Manager -------------------------- */
       .notice[id*="notice-update"],
       .em-admin-notice[id*="notice-update"],
 
-        /* forminator */
+        /* Forminator ----------------------------- */
       [data-notice-slug="forminator_promote_free_plan"],
 
-        /* WP Bakery */
+        /* Royal Elementor Plugins ---------------- */
+      .wpr-plugin-update-notice,
+
+        /* WP Bakery ------------------------------ */
       .updated.wpb-notice,
 
-        /* Royal Elementor Plugins */
-      .wpr-plugin-update-notice,
-      .end-selectors-list {
+        /* WooCommerce Advanced Accounts ---------- */
+      .notice.yoaa-review,
 
+        /* ---------------------------------------- */
+      #end-selectors-list {
         box-sizing: content-box; /* for enforcing min-height that matches font size */
         display: flex !important;
         gap: 0.125em !important;
@@ -690,20 +696,26 @@ class Admin_Ad_Sanitizer {
 
       /*@formatter:off*/
 
-      /* forminator */
+      /* Generic -------------------------------- */
+      .notice[id*="notice-update"]::after { content: "Plugins have been updated" !important }
+
+      /* forminator ----------------------------- */
       [data-notice-slug="forminator_promote_free_plan"]::after { content: "Forminator" !important; }
 
-      /* WP Bakery */
-      .updated.wpb-notice::after { content: "WP Bakery" !important; }
-
-      /* Royal Elementor Plugins */
-      .wpr-plugin-update-notice::after { content: "Royal Elementor Plugins" !important; }
-
-      /* Event Manager */
-      .notice[id*="notice-update"]::after,
+      /* Event Manager -------------------------- */
       .em-admin-notice[id*="notice-update"]::after { content: "Event Manager" !important }
 
+      /* Royal Elementor Plugins ---------------- */
+      .wpr-plugin-update-notice::after { content: "Royal Elementor Plugins" !important; }
+
+      /* WooCommerce Advanced Accounts ---------- */
+      .notice.yoaa-review::after { content: "WooCommerce Advanced Accounts" !important; }
+
+      /* WP Bakery ------------------------------ */
+      .updated.wpb-notice::after { content: "WP Bakery" !important; }
+
       /*@formatter:on*/
+
       /*#endregion Replacement labels */
       /* ------------------------------------------------------------------------------- */
 
@@ -716,7 +728,7 @@ class Admin_Ad_Sanitizer {
         /* Elementor  --------------------------- */
       #e-conversion-banner:has([href="https://go.elementor.com/pro-admin-menu/"]),
 
-        /* Theme Isle --------------------------- */
+        /* Black Friday ------------------------- */
       .notice:has([href*="utm_content=blackfriday"]), /* cf7 redirect */
 
         /* Small Balloons  ---------------------- */
